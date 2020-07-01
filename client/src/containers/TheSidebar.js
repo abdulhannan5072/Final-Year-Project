@@ -16,6 +16,8 @@ import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
 import navigation from './_nav'
+import nav_home from './nav-items/home'
+
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
@@ -41,7 +43,7 @@ const TheSidebar = () => {
       <CSidebarNav>
 
         <CCreateElement
-          items={navigation}
+          items={nav_home}
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,

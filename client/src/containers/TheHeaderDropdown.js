@@ -1,4 +1,6 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
+import { useSelector, useDispatch} from 'react-redux'
 import {
   CBadge,
   CDropdown,
@@ -8,8 +10,23 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import {logout} from '../store/actions';
 
-const TheHeaderDropdown = () => {
+const TheHeaderDropdown = (props) => {
+
+//mapStateToProps
+  const currentUser = useSelector(state => state.auth.user)
+  //mapDispatchToProps
+  const dispatch = useDispatch()
+  const userlogout = () => dispatch(logout())
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    userlogout()
+    history.push('/login')
+  }
+
   return (
     <CDropdown
       inNav
@@ -26,7 +43,7 @@ const TheHeaderDropdown = () => {
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem
+        {/* <CDropdownItem
           header
           tag="div"
           color="light"
@@ -53,14 +70,14 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-comment-square" className="mfe-2" /> 
           Comments
           <CBadge color="warning" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
         <CDropdownItem
           header
           tag="div"
           color="light"
           className="text-center"
         >
-          <strong>Settings</strong>
+          <strong>{currentUser.username}</strong>
         </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-user" className="mfe-2" />Profile
@@ -80,9 +97,9 @@ const TheHeaderDropdown = () => {
           <CBadge color="primary" className="mfs-auto">42</CBadge>
         </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem>
+        <CDropdownItem onClick={handleLogout}>
           <CIcon name="cil-lock-locked" className="mfe-2" /> 
-          Lock Account
+          Logout
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

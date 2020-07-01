@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {} from 'react'
+// import { useSelector, useDispatch} from 'react-redux'
+
 import {
   TheContent,
   TheSidebar,
@@ -6,7 +8,20 @@ import {
   TheHeader
 } from './index'
 
-const TheLayout = () => {
+// import {authCheckState} from '../store/actions';
+
+
+const TheLayout = (props) => {
+
+// //mapStateToProps
+// const isAuth = useSelector(state => state.auth.token !== null )
+// //mapDispatchToProps
+// const dispatch = useDispatch()
+// const tryAutoSignin = () => dispatch(authCheckState())
+
+// useEffect(() => {
+//   tryAutoSignin()
+// },[])
 
   return (
     <div className="c-app c-default-layout">
