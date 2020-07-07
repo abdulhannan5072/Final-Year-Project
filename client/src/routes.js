@@ -1,5 +1,10 @@
 import React from 'react';
 
+import Auth from './hoc/auth'
+
+
+
+
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
 
@@ -46,7 +51,11 @@ const createProject = React.lazy(() => import('./phases/Projects/Create'));
 const build = React.lazy(() => import('./phases/Build/Build'));
 // const changephase = React.lazy(() => import('./phases/Changephase/Changephase'));
 const createBuild = React.lazy(() => import('./phases/Build/create'));
+const editBuild = React.lazy(() => import('./phases/Build/EditBuild'));
+
+
 const module= React.lazy(() => import('./phases/Module/module'));
+const editModule = React.lazy(() => import('./phases/Module/Edit'));
 const createmodule = React.lazy(() => import('./phases/Module/create'));
 // const profile = React.lazy(() => import('./components/Account/Profile'));
 // const settings = React.lazy(() => import('./components/Account/Settings'));
@@ -107,39 +116,41 @@ const routes = [
 
   // { path: '/dashboard', exact: true, name: 'Dashboard', component:Dashboard },
 
-  { path: '/projects', exact: true, name: 'Projects', component: Projects },
-  { path: '/projects/create', exact: true, name: 'Create new Project', component: createProject },
+  { path: '/projects', exact: true, name: 'Projects', component: Auth(Projects,true) },
+  { path: '/projects/create', exact: true, name: 'Create new Project', component: Auth(createProject, true) },
 
   // { path: '/users', exact: true, name: 'Users', component: users },
   // { path: '/users/invite', exact: true, name: 'Invite', component: invite },
 
-  { path: '/project/module', exact: true, name: 'Module', component: module },
-  { path: '/project/module/create', exact: true, name: 'Create Module', component: createmodule},
+  { path: '/:key/module', exact: true, name: 'Module', component: Auth(module, true) },
+  { path: '/:key/module/create', exact: true, name: 'Create Module', component: Auth(createmodule, true)},
+  { path: '/:key/module/:id', exact: true, name: 'Edit Module', component: Auth(editModule, true)},
 
-  { path: '/project/build', exact: true, name: 'Build', component: build },
-  { path: '/project/build/create', exact: true, name: 'Create Build', component: createBuild },
+  { path: '/:key/build', exact: true, name: 'Build', component: Auth(build, true)},
+  { path: '/:key/build/create', exact: true, name: 'Create Build', component: Auth(createBuild, true) },
+  { path: '/:key/build/:id', exact: true, name: 'Edit Build', component: Auth(editBuild, true)},
 
   // { path: '/project/changePhase', exact: true, name: 'Invite', component: changephase },
 
-  { path: '/project/changePhase/environmentalAdaptation/create', exact: true, name: 'Invite', component: envAdaptation },
-  { path: '/project/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: AdaptationM },
+  { path: '/:key/changePhase/environmentalAdaptation/create', exact: true, name: 'Invite', component: envAdaptation },
+  { path: '/:key/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: AdaptationM },
 
-  { path: '/project/changePhase/faultRepairs/create', exact: true, name: 'Invite', component: faultRepairs },
-  { path: '/project/changePhase/faultRepairs', exact: true, name: 'Invite', component: FaultRepairs },
+  { path: '/:key/changePhase/faultRepairs/create', exact: true, name: 'Invite', component: faultRepairs },
+  { path: '/:key/changePhase/faultRepairs', exact: true, name: 'Invite', component: FaultRepairs },
 
-  { path: '/project/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: perfectiveM },
-  { path: '/project/changePhase/functionatilityAddition/create', exact: true, name: 'Invite', component: funAddition },
+  { path: '/:key/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: perfectiveM },
+  { path: '/:key/changePhase/functionatilityAddition/create', exact: true, name: 'Invite', component: funAddition },
 
   // { path: '/profile', exact: true, name: 'Invite', component: profile },
   // { path: '/settings', exact: true, name: 'Invite', component: settings },
 
-  { path: '/project/createTask', exact: true, name: 'Task', component: taskManagemnt },
-  { path: '/project/Task', exact: true, name: 'Task', component: TaskManagement },
+  { path: '/:key/createTask', exact: true, name: 'Task', component: taskManagemnt },
+  { path: '/:key/Task', exact: true, name: 'Task', component: TaskManagement },
 
   // { path: '/project/createTest', exact: true, name: 'Test', component: testphase },
 
-  { path: '/project/createDefect', exact: true, name: 'Test', component: defectManagement },
-  { path: '/project/Defect', exact: true, name: 'Test', component: Defect },
+  { path: '/:key/createDefect', exact: true, name: 'Test', component: defectManagement },
+  { path: '/:key/Defect', exact: true, name: 'Test', component: Defect },
 
 ];
 

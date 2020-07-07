@@ -3,13 +3,14 @@ import Aux from "../../hoc/_Aux/index";
 import {Row, Col, Button, 
         } from 'react-bootstrap';
 
-
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {IconButton} from '@material-ui/core';
 import {Table } from '../../shared/components';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-// const data = [ {id:1, name:'1.0', description:'------', created:'March 01, 2020', by:'abdulhannan5072'},
+const data = [ {id:1, name:'1.0', description:'------', created:'March 01, 2020', by:'abdulhannan5072'},
                 
-// ];
+];
 
 const columns = [
     {
@@ -34,7 +35,7 @@ const columns = [
     },
     {
         title: 'Link text',
-        field: 'linktext',
+        field: 'linkText',
     },
     {
         title: 'Assign To',
@@ -43,6 +44,11 @@ const columns = [
     {
         title: 'Reporter',
         field: 'reporter',
+    
+    },
+    {
+        title: 'Due Date',
+        field: 'dueDate',
     },
     {
         title: 'created date',
@@ -77,6 +83,18 @@ const columns = [
             }
         
         render(){
+   
+         
+           
+            
+              const More = ({row}) => (
+                  
+                    <IconButton aria-label='morehoriz' >
+                        <MoreHorizIcon/>
+                    </IconButton>
+                  
+              );
+            
 
             return(
                 <Aux>

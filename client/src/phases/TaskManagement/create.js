@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Formik, Form, InputFormik, QuillEditorFormik, SelectTextFieldFormik
+import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik, QuillEditorFormik, SelectTextFieldFormik
 } from '../../shared/components';
 import {Row, Col, Button,
 } from 'react-bootstrap';
@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import {Link} from 'react-router-dom';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertLinkIcon from '@material-ui/icons/InsertLink';
+import QuillEditor from '../../components/Editor/QuillEditor';
 import {InputLabel, Paper, Button as MButton} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import * as Yup from 'yup';

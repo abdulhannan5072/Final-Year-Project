@@ -3,3 +3,7 @@ export {
     authCheckState,
     logout
 } from './auth';
+
+export {
+    currentOpenProject
+} from './projects';

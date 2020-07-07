@@ -4,3 +4,25 @@
 .login-form-button {
     width: 100%;
   }
+
+  .bg-img{
+    background-image: url(./assets/bgLogin.jpg);
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .card-img{
+    background-image: url(./assets/Login3.jpg);
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .bg-color{
+      background-color: #4ACEDA;
+  }

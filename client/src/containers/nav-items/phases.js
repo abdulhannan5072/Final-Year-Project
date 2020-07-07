@@ -2,31 +2,31 @@ export default [
     {
         _tag: 'CSidebarNavItem',
         name: 'Build',
-        to: '/project/build',
+        to: '/build',
         icon: 'cil-speedometer',
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Module',
-        to: '/project/module',
+        to: '/module',
         icon: 'cil-drop',
     }, 
     {
         _tag: 'CSidebarNavItem',
         name: 'Fault Repairs',
-        to: '/project/changePhase/faultRepairs',
+        to: '/project/changePhase/faultRepairs/',
         icon: 'cil-speedometer',
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Task Management',
-        to: '/project/Task',
+        to: '/project/Task/',
         icon: 'cil-drop',
     }, 
     {
         _tag: 'CSidebarNavItem',
         name: 'Defect Management',
-        to: '/project/Defect',
+        to: '/project/Defect/',
         icon: 'cil-speedometer',
     },
     {

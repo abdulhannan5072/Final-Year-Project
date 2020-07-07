@@ -11,28 +11,26 @@ const projectSchema =mongoose.Schema(
             trim:true,
             unique:1
         },
-        key:
-        {
-            type:String,
-            require:true,
-            
-        },
         projectType:
         {
             type:String,
             require:true
         },
-        createddate:
+        projectKey:
+        {
+            type:String,
+            require:true
+        },
+        createdDate:
         {
             type:String,
             require:true,
         },
-        createdby:
+        createdBy:
         {
             type:String,
             require:true, 
         }
-    
     }
 )
 

@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 
 import { Button } from "antd";
 import { Paper } from "@material-ui/core";
+import { withSnackbar } from "notistack";
 
 import Aux from "../../hoc/_Aux";
 import * as Yup from "yup";
-import { getCurrentDate } from "../../shared/utils/dateTime";
-import { withSnackbar } from 'notistack';
 
 import {
   Formik,
@@ -18,42 +17,63 @@ import {
   QuillEditorFormik,
 } from "../../shared/components";
 
-const initialValues = {
-  build: "",
-  description: "",
-};
-
 const validationSchema = Yup.object().shape({
   build: Yup.string().min(2, "Too Short!").required("Required"),
 });
 
 class Create extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        build: "",
+        description: "",
+      },
+      loading: false,
+      desc: "",
+    };
+  }
 
-  state= {
-    loading: false
+  componentDidMount() {
+    this.fetch();
+  }
+
+  async fetch() {
+    this.setState({ loading: true });
+    const id = this.props.match.params.id;
+    try {
+      const response = await axios.get("/api/build/" + id);
+      this.setState({
+        loading: false,
+        data: await response.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   onSubmit = (values, { setSubmitting }) => {
-    this.setState= {
-      loading: true
-    }
+    this.setState({ loading: true });
+    const id = this.props.match.params.id;
     const data = {
       ...values,
-      createdBy: this.props.currentUser,
-      createdDate: getCurrentDate(),
-      projectKey: this.props.match.params.key,
     };
-    axios.post("/api/build/create", data).then((res) => {
-      this.setState= {
-        loading: false
-      }
-      if (res.status === 200) {
-        this.props.enqueueSnackbar("Build created", {
-          variant: "success",
+    axios
+      .post("/api/build/" + id, data)
+      .then((res) => {
+        this.setState({
+          loading: false,
         });
-        this.props.history.push("/" + this.props.match.params.key + "/build");
-      }
-    });
+        if (res.status === 201) {
+          this.props.enqueueSnackbar("Updated sucessfully", {
+            variant: "success",
+          });
+          this.props.history.push("/" + this.props.match.params.key + "/build");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -62,10 +82,14 @@ class Create extends Component {
         <div className="page">
           <Paper className="p-5  ">
             <div className="mb-2">
-              <h3>Create Build</h3>
+              <h3>Edit Build</h3>
             </div>
             <Formik
-              initialValues={initialValues}
+              enableReinitialize={true}
+              initialValues={{
+                build: this.state.data.build,
+                description: this.state.data.description,
+              }}
               validationSchema={validationSchema}
               onSubmit={this.onSubmit}
             >
@@ -74,8 +98,15 @@ class Create extends Component {
                   <div className="mt-3">
                     <TextFieldFormik label="Build" name="build" />
                   </div>
+
                   <div className="mt-2">
                     <QuillEditorFormik label="Description" name="description" />
+
+                    {/* <QuillEditor
+                      ref={(el) => { this.reactQuillRef = el }}
+                      value={this.state.desc}
+                      onChange={this.handleChange}
+                    />*/}
                   </div>
                   <div className="mt-5 flex-row-reverse d-flex">
                     <Button
@@ -83,12 +114,13 @@ class Create extends Component {
                       type="primary"
                       htmlType="submit"
                     >
-                      Create Build
+                      Update
                     </Button>
                     <Link to={"/" + this.props.match.params.key + "/build"}>
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>
+                  {/* <div dangerouslySetInnerHTML={{__html: this.state.desc}}></div> */}
                 </Form>
               )}
             </Formik>

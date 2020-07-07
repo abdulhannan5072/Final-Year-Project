@@ -34,8 +34,8 @@ export const InputFormik = ({ label, ...props }) => {
     return (
       <>
         <TextField {...field} {...props} label={label}
-          error={meta.touched && meta.error? true : null}
-          helperText={meta.touched && meta.error ? meta.error : null}
+          error={meta.touched && meta.error? true : undefined}
+          helperText={meta.touched && meta.error ? meta.error : ' '}
         />
       </>
     );
@@ -46,7 +46,7 @@ export const InputFormik = ({ label, ...props }) => {
       <>
         <SelectTextField {...field} {...props} label={label}
           error={meta.touched && meta.error? true : null}
-          helperText={meta.touched && meta.error ? meta.error : null}
+          helperText={meta.touched && meta.error ? meta.error : ' '}
         />
         
       </>
@@ -58,6 +58,7 @@ export const InputFormik = ({ label, ...props }) => {
     return (
       <>
         <QuillEditor {...props} label={label}
+          defaultValue={field.value}
           value={field.value}
           onChange={field.onChange(field.name)}
           // error={meta.touched && meta.error? 'true':'false'}

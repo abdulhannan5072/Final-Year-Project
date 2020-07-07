@@ -7,7 +7,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { SnackbarProvider } from 'notistack';
 
-import 'antd/dist/antd.css';
 
 import {BrowserRouter} from 'react-router-dom';
 import { createStore, compose, applyMiddleware, combineReducers} from 'redux';
@@ -17,6 +16,7 @@ import Thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import reducer from './store/reducer'
 import authReducer from './store/reducers/auth';
+import projectReducer from './store/reducers/projects';
 
 React.icons = icons
 
@@ -24,7 +24,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducers = combineReducers({
     reducer: reducer,
-    auth: authReducer
+    auth: authReducer,
+    project: projectReducer
 })
 
 const store = createStore(rootReducers, composeEnhancers(applyMiddleware(Thunk)));

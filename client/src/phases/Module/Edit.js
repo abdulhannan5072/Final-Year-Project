@@ -3,57 +3,78 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { Paper } from "@material-ui/core";
 import { Button } from "antd";
+import { Paper } from "@material-ui/core";
+import { withSnackbar } from "notistack";
 
 import Aux from "../../hoc/_Aux";
 import * as Yup from "yup";
-import { withSnackbar } from "notistack";
+
 import {
   Formik,
   Form,
   TextFieldFormik,
   QuillEditorFormik,
 } from "../../shared/components";
-import { getCurrentDate } from "../../shared/utils/dateTime";
-
-const initialValues = {
-  module: "",
-  description: "",
-};
 
 const validationSchema = Yup.object().shape({
   module: Yup.string().min(2, "Too Short!").required("Required"),
 });
 
 class Create extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        module: "",
+        description: "",
+      },
+      loading: false,
+    };
+  }
 
-  state= {
-    loading: false
+  componentDidMount() {
+    this.fetch();
+  }
+
+  async fetch() {
+    this.setState({ loading: true });
+    const id = this.props.match.params.id;
+    try {
+      const response = await axios.get("/api/module/" + id);
+      this.setState({
+        loading: false,
+        data: await response.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   onSubmit = (values, { setSubmitting }) => {
-    this.setState= {
-      loading: true
-    }
+    this.setState({ loading: true });
+    const id = this.props.match.params.id;
     const data = {
       ...values,
-      createdBy: this.props.currentUser,
-      createdDate: getCurrentDate(),
-      projectKey: this.props.match.params.key,
     };
-    axios.post("/api/module/create", data).then((res) => {
-      console.log(res);
-      this.setState= {
-        loading: false
-      }
-      if (res.status === 200) {
-        this.props.enqueueSnackbar("Module created", {
-          variant: "success",
+    axios
+      .post("/api/module/" + id, data)
+      .then((res) => {
+        this.setState({
+          loading: false,
         });
-        this.props.history.push("/" + this.props.match.params.key + "/module");
-      }
-    });
+        if (res.status === 201) {
+          this.props.enqueueSnackbar("Updated sucessfully", {
+            variant: "success",
+          });
+          this.props.history.push(
+            "/" + this.props.match.params.key + "/module"
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -62,10 +83,15 @@ class Create extends Component {
         <div className="page">
           <Paper className="p-5  ">
             <div className="mb-2">
-              <h3> Module</h3>
+              <h3>Edit Module</h3>
             </div>
+
             <Formik
-              initialValues={initialValues}
+              enableReinitialize={true}
+              initialValues={{
+                module: this.state.data.module,
+                description: this.state.data.description,
+              }}
               validationSchema={validationSchema}
               onSubmit={this.onSubmit}
             >
@@ -83,7 +109,7 @@ class Create extends Component {
                       type="primary"
                       htmlType="submit"
                     >
-                      Create module
+                      Update
                     </Button>
                     <Link to={"/" + this.props.match.params.key + "/module"}>
                       <Button className="mr-2">Cancel</Button>

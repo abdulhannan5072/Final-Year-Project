@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import {TextField} from '../';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
-      width: '25ch',
+      width: '30ch',
     },
   },
 }));
@@ -23,8 +23,6 @@ export default function Select1(props) {
       <div className={classes.root}>
       <TextField
           select
-          size='small'
-          variant="outlined"
           {...props}
           InputLabelProps={{
             shrink: true,

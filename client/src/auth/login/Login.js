@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 
 import {
-  CButton,
   CCard,
   CCardBody,
   CCardGroup,
@@ -22,8 +21,6 @@ import { InfoCircleOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone, Loc
 
 
 import { withSnackbar } from 'notistack';
-import * as actions from '../../store/actions';
-import {Spin} from 'antd';
 
 const initialValues= {
   email: '',
@@ -77,7 +74,7 @@ const Login = (props) => {
   });
 
   return (
-    <div className="c-app c-default-layout flex-row align-items-center">
+    <div className="c-app c-default-layout flex-row align-items-center bg-img">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
@@ -138,19 +135,18 @@ const Login = (props) => {
 
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2 className="text-white">Sign up</h2>
+              <CCard className="  py-4 d-md-down-none " style={{ width: '60%' }}>
+                <CCardBody className=" card-img">
+                  {/* <div className="card-img"> */}
+                    {/* <h2 className="text-white">Sign up</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                       labore et dolore magna aliqua.</p>
                     <Link to="/register">
                       <Button type="dashed" htmlType="submit" className="mt-4">
                         Register Now!
                       </Button>
-                        {/* <CButton color="secondary" className="mt-3" active tabIndex={-1}>Register Now!</CButton> */}
-                    </Link>
-                  </div>
+                    </Link> */}
+                  {/* </div> */}
                 </CCardBody>
               </CCard>
             </CCardGroup>

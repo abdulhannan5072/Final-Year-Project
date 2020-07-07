@@ -1,5 +1,4 @@
 import React, {} from 'react'
-// import { useSelector, useDispatch} from 'react-redux'
 
 import {
   TheContent,
@@ -7,27 +6,33 @@ import {
   TheFooter,
   TheHeader
 } from './index'
+import {useLocation} from 'react-router-dom'
 
-// import {authCheckState} from '../store/actions';
-
+import nav_changePhase from './nav-items/changephase'
+import TheHeaderSubMenu from './TheHeaderSubMenu';
+import HeaderH from './Header'
 
 const TheLayout = (props) => {
 
-// //mapStateToProps
-// const isAuth = useSelector(state => state.auth.token !== null )
-// //mapDispatchToProps
-// const dispatch = useDispatch()
-// const tryAutoSignin = () => dispatch(authCheckState())
+  const location = useLocation();
+  const currentKey = location.pathname.split("/")[2] || "/";
 
-// useEffect(() => {
-//   tryAutoSignin()
-// },[])
-
+  let Subnav = '';
+  switch(currentKey){
+      case 'changePhase':
+        Subnav = (<TheHeaderSubMenu nav_link={nav_changePhase} />);
+          break;
+      default:
+        Subnav = '';
+  }
   return (
     <div className="c-app c-default-layout">
       <TheSidebar/>
       <div className="c-wrapper">
+        {/* <HeaderH/> */}
         <TheHeader/>
+        {Subnav}
+
         <div className="c-body">
           <TheContent/>
         </div>
