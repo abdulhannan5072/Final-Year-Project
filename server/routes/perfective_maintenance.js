@@ -1,55 +1,64 @@
-const routes = require('express').Router();
-const{PerfectiveMaintenance}=require('../models/perfective_maintenance');
+const routes = require("express").Router();
+const { PerfectiveMaintenance } = require("../models/perfective_maintenance");
 
-routes.post('/api/perfectivemaintenance/create',(req,res)=>{
-    const perfectivemaintenance =new PerfectiveMaintenance(req.body)
-    perfectivemaintenance.save(function(err,doc){
-    if(err) return res.status(400).send(err);
+routes.post("/api/functionatilityAddition/create", (req, res) => {
+  const perfectivemaintenance = new PerfectiveMaintenance(req.body);
+  perfectivemaintenance.save(function (err, doc) {
+    if (err) return res.status(400).send(err);
     res.status(200).send(doc);
-}
-)
-})
-routes.get('/api/getperfectivemaintenance', (req,res)=>{
-    PerfectiveMaintenance.find({}, (err, data)=>{
-        if(err) return res.status(400).send(err);
-        res.status(200).send(data);
-    })
-})
+  });
+});
+
+//get
+routes.get("/api/getFunctionatilityAddition/:id", (req, res) => {
+  PerfectiveMaintenance.find({ project: req.params.id }, (err, data) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(data);
+  });
+});
+
 //Delete
-routes.post('/api/perfectivemaintenance/delete', function(req,res){
-    let id =req.body.id;
-    PerfectiveMaintenance.findByIdAndDelete(id, (err,perfectivemaintenance)=>{
-        if(err) return res.status(400).send(err);
-        if(!perfectivemaintenance) return res.json({
-         message:'PerfectiveMaintenance phase  Removed'
-         
-        }) 
-     })
 
-})
+routes.post("/api/functionatilityAddition/delete", (req, res) => {
+  let id = req.body._id;
+  PerfectiveMaintenance.findByIdAndDelete(id, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.json({
+        message: "Not Found",
+      });
+    return res.status(201).json({
+      message: "Deleted Succesfully",
+    });
+  });
+});
+
 //Find
-routes.post('/api/perfectivemaintenance/find',function(req,res){
-    PerfectiveMaintenance.findOne({'functionallityname':req.body.functionallityname},(err,perfectivemaintenance)=>{
-        if(err) return res.status(400).send(err);
-        if(!perfectivemaintenance) return res.json(
-            {
-                message:'PerfectiveMaintenance Phase not found '
-            }
-        )
-        else if (perfectivemaintenance) res.json({
-            message:'PerfectiveMaintenancee Phase found'
 
-        }
-        )
-    })
-})
+routes.get("/api/functionatilityAddition/:id", (req, res) => {
+  let id = req.params.id;
+  PerfectiveMaintenance.findById(id, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.json({
+        message: "Not found ",
+      });
+    return res.status(200).send(doc);
+  });
+});
+
 //Update
-routes.post('/api/perfectivemaintenance/update',(req,res)=>
-{
-    PerfectiveMaintenance.findByIdAndUpdate(req.body.id, req.body, {new:true}, (err,doc)=>{
-        if(err) return res.status(400).send(err);
-            res.status(200).send(doc);
-        })
-})
+
+routes.post("/api/functionatilityAddition/:id", function (req, res) {
+  PerfectiveMaintenance.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true, useFindAndModify: false },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).send(doc);
+    }
+  );
+});
 
 module.exports = routes;

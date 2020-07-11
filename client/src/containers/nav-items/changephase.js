@@ -5,14 +5,14 @@ export default [
             to: '/changePhase/faultRepairs',
         },
         {
-            title: 'Functionatility Addition',
+            title: 'Perfective maintenance',
             key:"funAdd",
             to: '/changePhase/functionatilityAddition',
         },
         {
-            title: 'Environmental Adaptation',
+            title: 'Adaptive Maintenance',
             key:"adopMaintenance",
-            to: '/changePhase/environmentalAdaptation',
+            to: '/changePhase/adaptiveMaintenance',
         },
         
     ]

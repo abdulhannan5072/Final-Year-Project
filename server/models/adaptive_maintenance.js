@@ -1,36 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const adaptivemaintenanceSchema=mongoose.Schema(
-    {
-    selectBuild:
-    {
-        type:String,
-        require:true,
-     
+const adaptivemaintenanceSchema = mongoose.Schema(
+  {
+    type: {
+      type: String,
+      require: true,
     },
-    envAdaptType:
-    {
-        type:String,
-        require:true,
+    affected: {
+      type: String,
+      require: true,
     },
-    name:
-    {
-        type:String,
-        require:true,
+    affectedBy: {
+      type: String,
+      require: true,
+    },
+    description: {
+      type: String,
+      require: true,
+    },
+    project: {
+      type: mongoose.Types.ObjectId,
+      ref: "Project",
+      require: true,
+    },
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      require: true,
+    },
+  },
+  { timestamps: true }
+);
 
-    },
-    selectModule:
-    {
-        type:String,
-        require:true,
-       },
-    adoptationrequirements:
-    {
-        type:String,
-        require:true,
-
-    }
-    }
-)
-const AdaptiveMaintenance=mongoose.model('AdaptiveMaintenance',adaptivemaintenanceSchema);
-module.exports={AdaptiveMaintenance};
+const AdaptiveMaintenance = mongoose.model(
+  "AdaptiveMaintenance",
+  adaptivemaintenanceSchema
+);
+module.exports = { AdaptiveMaintenance };

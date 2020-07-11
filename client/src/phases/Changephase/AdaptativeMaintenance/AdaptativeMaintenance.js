@@ -9,7 +9,7 @@ import axios from "axios";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
 import { Button, Space, Popconfirm, Tooltip, Alert, Card } from "antd";
 
-class FaultRepair extends Component {
+class AdoptiveMaintenance extends Component {
   state = {
     data: [],
     loading: false,
@@ -23,7 +23,7 @@ class FaultRepair extends Component {
     this.setState({ loading: true });
     const Pid = this.props.match.params.Pid;
     try {
-      const response = await axios.get("/api/getCorrectiveMaintenance/" + Pid);
+      const response = await axios.get("/api/getAdaptiveMaintenance/" + Pid);
       this.setState({
         loading: false,
         data: await response.data,
@@ -39,7 +39,7 @@ class FaultRepair extends Component {
       _id: record._id,
     };
     axios
-      .post("/api/correctiveMaintenance/delete", id)
+      .post("/api/adaptiveMaintenance/delete", id)
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
@@ -54,15 +54,15 @@ class FaultRepair extends Component {
   onProjectEditHandle = (record) => {
     const Pid = this.props.match.params.Pid;
     this.props.history.push(
-      "/" + Pid + "/changePhase/faultRepairs/" + record._id
+      "/" + Pid + "/changePhase/adaptiveMaintenance/" + record._id
     );
   };
   render() {
     const columns = [
       {
-        title: "Fault",
-        dataIndex: "fault",
-        key: "fault",
+        title: "Affected",
+        dataIndex: "affected",
+        key: "affected",
         sorter: "true",
         width: "20%",
         colSearch: "true",
@@ -77,10 +77,27 @@ class FaultRepair extends Component {
       },
       {
         title: "Type",
-        dataIndex: "faultType",
-        key: "faultType",
+        dataIndex: "type",
+        key: "type",
         sorter: "true",
+        width: "15%",
         colSearch: "true",
+      },
+      {
+        title: "Affected By",
+        dataIndex: "affectedBy",
+        key: "affectedBy",
+        sorter: "true",
+        width: "20%",
+        colSearch: "true",
+        ellipsis: {
+          showTitle: false,
+        },
+        render: (address) => (
+          <Tooltip placement="topLeft" title={address}>
+            {address}
+          </Tooltip>
+        ),
       },
       {
         title: "Description",
@@ -96,21 +113,9 @@ class FaultRepair extends Component {
           </Tooltip>
         ),
       },
-      // {
-      //   title: "Build",
-      //   dataIndex: "build",
-      //   key: "build",
-      //   sorter: "true",
-      // },
-      // {
-      //   title: "Module",
-      //   dataIndex: "module",
-      //   key: "module",
-      //   sorter: "true",
-      // },
-
       {
         align: "right",
+        width: "15%",
         render: (record) => (
           <Space size="small">
             <Button
@@ -139,14 +144,14 @@ class FaultRepair extends Component {
           <Col>
             <div className="mb-4">
               <Alert
-                message="What is Corrective Maintenance"
-                description="	Corrective maintenance is any task that corrects a problem with an asset and returns it to proper working order."
+                message="What is Adaptive Maintenance"
+                description="Adaptive maintenance is the modification of a software product, performed after delivery, to keep a software product usable in a changed or changing environment"
                 type="info"
                 showIcon
               />
             </div>
             <Card
-              title="Corrective Maintenance"
+              title="Adoptive Maintenance"
               bordered={false}
               extra={
                 <Button type="primary" className="float-right">
@@ -154,11 +159,11 @@ class FaultRepair extends Component {
                     to={
                       "/" +
                       this.props.match.params.Pid +
-                      "/changePhase/faultRepairs/create"
+                      "/changePhase/adaptiveMaintenance/create"
                     }
                     className="text-light"
                   >
-                    Create Fault
+                    Create requirements
                   </Link>
                 </Button>
               }
@@ -178,4 +183,4 @@ class FaultRepair extends Component {
   }
 }
 
-export default FaultRepair;
+export default AdoptiveMaintenance;

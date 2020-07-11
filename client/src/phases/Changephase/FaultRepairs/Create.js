@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { QuillEditorFormik } from "../../../shared/components";
-import {faultTypes} from '../../../shared/constants/Faults'
+import {faultTypes} from '../../../shared/constants/Types'
 
 const initialValues = {
   selectBuild: "",

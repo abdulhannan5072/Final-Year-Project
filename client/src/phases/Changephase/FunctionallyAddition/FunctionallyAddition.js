@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { Button, Space, Popconfirm, Tooltip, Alert, Card } from "antd";
+import { Button, Space, Popconfirm, Tooltip, Card, Alert } from "antd";
 
-class FaultRepair extends Component {
+class PerfectiveMaintenance extends Component {
   state = {
     data: [],
     loading: false,
@@ -23,7 +23,9 @@ class FaultRepair extends Component {
     this.setState({ loading: true });
     const Pid = this.props.match.params.Pid;
     try {
-      const response = await axios.get("/api/getCorrectiveMaintenance/" + Pid);
+      const response = await axios.get(
+        "/api/getFunctionatilityAddition/" + Pid
+      );
       this.setState({
         loading: false,
         data: await response.data,
@@ -39,7 +41,7 @@ class FaultRepair extends Component {
       _id: record._id,
     };
     axios
-      .post("/api/correctiveMaintenance/delete", id)
+      .post("/api/functionatilityAddition/delete", id)
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
@@ -54,15 +56,15 @@ class FaultRepair extends Component {
   onProjectEditHandle = (record) => {
     const Pid = this.props.match.params.Pid;
     this.props.history.push(
-      "/" + Pid + "/changePhase/faultRepairs/" + record._id
+      "/" + Pid + "/changePhase/functionatilityAddition/" + record._id
     );
   };
   render() {
     const columns = [
       {
-        title: "Fault",
-        dataIndex: "fault",
-        key: "fault",
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
         sorter: "true",
         width: "20%",
         colSearch: "true",
@@ -77,16 +79,17 @@ class FaultRepair extends Component {
       },
       {
         title: "Type",
-        dataIndex: "faultType",
-        key: "faultType",
+        dataIndex: "functionalityType",
+        key: "functionalityType",
         sorter: "true",
         colSearch: "true",
+        width: "20%",
       },
       {
-        title: "Description",
-        dataIndex: "description",
-        key: "description",
-        width: "30%",
+        title: "Requirements",
+        dataIndex: "requirements",
+        key: "requirements",
+        width: "25%",
         ellipsis: {
           showTitle: false,
         },
@@ -96,21 +99,23 @@ class FaultRepair extends Component {
           </Tooltip>
         ),
       },
-      // {
-      //   title: "Build",
-      //   dataIndex: "build",
-      //   key: "build",
-      //   sorter: "true",
-      // },
-      // {
-      //   title: "Module",
-      //   dataIndex: "module",
-      //   key: "module",
-      //   sorter: "true",
-      // },
-
+      {
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: "25%",
+        ellipsis: {
+          showTitle: false,
+        },
+        render: (address) => (
+          <Tooltip placement="topLeft" title={address.replace(/<[^>]*>/g, "")}>
+            {address.replace(/<[^>]*>/g, "")}
+          </Tooltip>
+        ),
+      },
       {
         align: "right",
+        width: "10%",
         render: (record) => (
           <Space size="small">
             <Button
@@ -139,14 +144,14 @@ class FaultRepair extends Component {
           <Col>
             <div className="mb-4">
               <Alert
-                message="What is Corrective Maintenance"
-                description="	Corrective maintenance is any task that corrects a problem with an asset and returns it to proper working order."
+                message="What is Perfective Maintenance"
+                description="	Perfective maintenance mainly deals with implementing new or changed user requirements. Perfective maintenance involves making functional enhancements to the system in addition to the activities to increase the system’s performance even when the changes have not been suggested by faults. This includes enhancing both the function and efficiency of the code and changing the functionalities of the system as per the users’ changing needs."
                 type="info"
                 showIcon
               />
             </div>
             <Card
-              title="Corrective Maintenance"
+              title="Perfective Maintenance"
               bordered={false}
               extra={
                 <Button type="primary" className="float-right">
@@ -154,11 +159,11 @@ class FaultRepair extends Component {
                     to={
                       "/" +
                       this.props.match.params.Pid +
-                      "/changePhase/faultRepairs/create"
+                      "/changePhase/functionatilityAddition/create"
                     }
                     className="text-light"
                   >
-                    Create Fault
+                    Create new requirements
                   </Link>
                 </Button>
               }
@@ -178,4 +183,4 @@ class FaultRepair extends Component {
   }
 }
 
-export default FaultRepair;
+export default PerfectiveMaintenance;

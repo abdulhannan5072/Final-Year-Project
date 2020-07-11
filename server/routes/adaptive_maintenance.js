@@ -1,55 +1,64 @@
-const routes = require('express').Router();
-const{AdaptiveMaintenance}=require('../models/adaptive_maintenance');
+const routes = require("express").Router();
+const { AdaptiveMaintenance } = require("../models/adaptive_maintenance");
 
-routes.post('/api/adaptivemaintenance/create',(req,res)=>{
-    const adaptivemaintenance =new AdaptiveMaintenance(req.body)
-    adaptivemaintenance.save(function(err,doc){
-    if(err) return res.status(400).send(err);
+routes.post("/api/adaptiveMaintenance/create", (req, res) => {
+  const adaptivemaintenance = new AdaptiveMaintenance(req.body);
+  adaptivemaintenance.save(function (err, doc) {
+    if (err) return res.status(400).send(err);
     res.status(200).send(doc);
-}
-)
-})
-routes.get('/api/getadaptivemaintenance', (req,res)=>{
-    AdaptiveMaintenance.find({}, (err, data)=>{
-        if(err) return res.status(400).send(err);
-        res.status(200).send(data);
-    })
-})
+  });
+});
+
+//get
+routes.get("/api/getAdaptiveMaintenance/:id", (req, res) => {
+  AdaptiveMaintenance.find({ project: req.params.id }, (err, data) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(data);
+  });
+});
+
 //Delete
-routes.post('/api/adaptivemaintenance/delete', function(req,res){
-    let id =req.body.id;
-    AdaptiveMaintenance.findByIdAndDelete(id, (err,adaptivemaintenance)=>{
-        if(err) return res.status(400).send(err);
-        if(!adaptivemaintenance) return res.json({
-         message:'AdaptiveMaintenance Phase  Removed'
-         
-        }) 
-     })
 
-})
+routes.post("/api/adaptiveMaintenance/delete", (req, res) => {
+  let id = req.body._id;
+  AdaptiveMaintenance.findByIdAndDelete(id, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.json({
+        message: "Not Found",
+      });
+    return res.status(201).json({
+      message: "Deleted Succesfully",
+    });
+  });
+});
+
 //Find
-routes.post('/api/adaptivemaintenance/find',function(req,res){
-    AdaptiveMaintenance.findOne({'name':req.body.name},(err,adaptivemaintenance)=>{
-        if(err) return res.status(400).send(err);
-        if(!adaptivemaintenance) return res.json(
-            {
-                message:'AdaptiveMaintenance Phase not found '
-            }
-        )
-        else if (adaptivemaintenance) res.json({
-            message:'AdaptiveMaintenance Phase found'
 
-        }
-        )
-    })
-})
+routes.get("/api/adaptiveMaintenance/:id", (req, res) => {
+  let id = req.params.id;
+  AdaptiveMaintenance.findById(id, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.json({
+        message: "Not found ",
+      });
+    return res.status(200).send(doc);
+  });
+});
+
 //Update
-routes.post('/api/adaptivemaintenance/update',(req,res)=>
-{
-    AdaptiveMaintenance.findByIdAndUpdate(req.body.id, req.body, {new:true}, (err,doc)=>{
-        if(err) return res.status(400).send(err);
-            res.status(200).send(doc);
-        })
-})
+
+routes.post("/api/adaptiveMaintenance/:id", function (req, res) {
+    AdaptiveMaintenance.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true, useFindAndModify: false },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).send(doc);
+    }
+  );
+});
 
 module.exports = routes;

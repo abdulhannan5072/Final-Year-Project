@@ -57,21 +57,26 @@ const editBuild = React.lazy(() => import('./phases/Build/EditBuild'));
 const module= React.lazy(() => import('./phases/Module/module'));
 const editModule = React.lazy(() => import('./phases/Module/Edit'));
 const createmodule = React.lazy(() => import('./phases/Module/create'));
-// const profile = React.lazy(() => import('./components/Account/Profile'));
-// const settings = React.lazy(() => import('./components/Account/Settings'));
-const envAdaptation = React.lazy(() => import('./phases/Changephase/EnvironmentalAdaptation'));
-const AdaptationM =React.lazy(() => import('./phases/Changephase/AdoptativeMaintenance/AdoptativeMaintenance'));
-// const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'));
-const FaultRepairs=React.lazy(() => import('./phases/Changephase/FaultRepairs/faultpairs'));
-const funAddition = React.lazy(() => import('./phases/Changephase/FunctionalityAddition'));
-const perfectiveM = React.lazy(() => import('./phases/Changephase/PerfectiveMaintenance/PerfectiveMaintenance'));
+
+
 const taskManagemnt = React.lazy(() => import('./phases/TaskManagement/create'));
 const TaskManagement=React.lazy(() => import('./phases/TaskManagement/Task'));
 // const testphase =React.lazy(()=> import('./phases/Testphase/create'));
 const defectManagement =React.lazy(()=> import('./phases/DefectManagement/create'));
 const Defect =React.lazy(()=> import('./phases/DefectManagement/Defect'));
+
 const createfaultRepairs =React.lazy(()=> import('./phases/Changephase/FaultRepairs/Create'));
 const editfaultRepairs =React.lazy(()=> import('./phases/Changephase/FaultRepairs/Edit'));
+const FaultRepairs=React.lazy(() => import('./phases/Changephase/FaultRepairs/faultpairs'));
+
+const funAdditionCreate = React.lazy(() => import('./phases/Changephase/FunctionallyAddition/Create'));
+const funAddition = React.lazy(() => import('./phases/Changephase/FunctionallyAddition/FunctionallyAddition'));
+const editfunAddition = React.lazy(() => import('./phases/Changephase/FunctionallyAddition/Edit'));
+
+const adaptiveCreate = React.lazy(() => import('./phases/Changephase/AdaptativeMaintenance/Create'));
+const adaptiveMaintenance = React.lazy(() => import('./phases/Changephase/AdaptativeMaintenance/AdaptativeMaintenance'));
+const editadaptive = React.lazy(() => import('./phases/Changephase/AdaptativeMaintenance/Edit'));
+
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -134,16 +139,18 @@ const routes = [
 
   // { path: '/project/changePhase', exact: true, name: 'Invite', component: changephase },
 
-  { path: '/:Pid/changePhase/environmentalAdaptation/create', exact: true, name: 'Create', component: Auth(envAdaptation, true) },
-  { path: '/:Pid/changePhase/environmentalAdaptation', exact: true, name: 'Environmental Adaptation', component: Auth(AdaptationM, true) },
-
-  // { path: '/:Pid/changePhase/faultRepairs/create', exact: true, name: 'Create', component: faultRepairs },
   { path: '/:Pid/changePhase/faultRepairs', exact: true, name: 'Fault Repairs', component: Auth(FaultRepairs, true) },
   { path: '/:Pid/changePhase/faultRepairs/create', exact: true, name: 'Create', component: Auth(createfaultRepairs, true) },
   { path: '/:Pid/changePhase/faultRepairs/:id', exact: true, name: 'Edit', component: Auth(editfaultRepairs, true) },
 
-  { path: '/:Pid/changePhase/functionatilityAddition', exact: true, name: 'Functionatility Addition', component: Auth(perfectiveM, true) },
-  { path: '/:Pid/changePhase/functionatilityAddition/create', exact: true, name: 'Create', component: Auth(funAddition, true) },
+  { path: '/:Pid/changePhase/functionatilityAddition', exact: true, name: 'Functionatility Addition', component: Auth(funAddition, true) },
+  { path: '/:Pid/changePhase/functionatilityAddition/create', exact: true, name: 'Create', component: Auth(funAdditionCreate, true) },
+  { path: '/:Pid/changePhase/functionatilityAddition/:id', exact: true, name: 'Edit', component: Auth(editfunAddition, true) },
+
+  { path: '/:Pid/changePhase/adaptiveMaintenance', exact: true, name: 'Functionatility Addition', component: Auth(adaptiveMaintenance, true) },
+  { path: '/:Pid/changePhase/adaptiveMaintenance/create', exact: true, name: 'Create', component: Auth(adaptiveCreate, true) },
+  { path: '/:Pid/changePhase/adaptiveMaintenance/:id', exact: true, name: 'Edit', component: Auth(editadaptive, true) },
+
 
   // { path: '/profile', exact: true, name: 'Invite', component: profile },
   // { path: '/settings', exact: true, name: 'Invite', component: settings },

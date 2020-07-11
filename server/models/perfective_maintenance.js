@@ -1,44 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const perfectivemaintenanceSchema=mongoose.Schema(
-    {
-    selectBuild:
-    {
-        type:String,
-        require:true,
-       
+const perfectivemaintenanceSchema = mongoose.Schema(
+  {
+    functionalityType: {
+      type: String,
+      require: true,
     },
-    functionalityType:
-    {
-        type:String,
-        require:true,
+    name: {
+      type: String,
+      require: true,
     },
-    functionalityName:
-    {
-        type:String,
-        require:true,
-
+    requirements: {
+      type: String,
+      require: true,
     },
-    selectModule:
-    {
-        type:String,
-        require:true,
-
-
+    description: {
+      type: String,
+      require: true,
     },
-    requirements:
-    {
-        type:String,
-        require:true,
-
+    project: {
+      type: mongoose.Types.ObjectId,
+      ref: "Project",
+      require: true,
     },
-    description:
-    {
-        type:String,
-        require:true,
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      require: true,
+    },
+  },
+  { timestamps: true }
+);
 
-    }
-    }
-)
-const PerfectiveMaintenance=mongoose.model('PerfectiveMaintenance',perfectivemaintenanceSchema);
-module.exports={PerfectiveMaintenance};
+const PerfectiveMaintenance = mongoose.model(
+  "PerfectiveMaintenance",
+  perfectivemaintenanceSchema
+);
+module.exports = { PerfectiveMaintenance };

@@ -38,7 +38,7 @@ const TheLayout = (props) => {
         <div className="c-body">
           <TheContent/>
         </div>
-        <TheFooter/>
+        {/* <TheFooter/> */}
       </div>
     </div>
   )
