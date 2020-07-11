@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {authCheckState} from './store/actions';
 import Auth from './hoc/auth';
 
-import './scss/style.scss';
 import 'antd/dist/antd.css';
+import './scss/style.scss';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -24,6 +24,8 @@ const Page403 = React.lazy(() => import('./shared/static/Error403'));
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'));
 
+const fileupload = React.lazy(() => import('./shared/utils/Fileupload'));
+
 class App extends Component {
   componentDidMount (){
     this.props.tryAutoSignin();
@@ -33,6 +35,8 @@ class App extends Component {
       <HashRouter>
           <React.Suspense fallback={loading}>
             <Switch>
+            <Route exact path="/upload" name="Login Page" component={ fileupload } />
+
               <Route exact path="/login" name="Login Page" component={ Auth(Login , false)} />
               <Route exact path="/register" name="Register Page" component={ Auth(Register, false)} />
               <Route exact path="/403" name="Page 403" render={props => <Page403 {...props}/>} />

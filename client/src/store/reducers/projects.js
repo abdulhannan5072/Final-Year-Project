@@ -7,13 +7,21 @@ const initialState = {
   projectKey: null,
   createdBy: null,
   createdDate: null,
+  builds: {
+    build: ''
+  }
 };
 
 const currentOpenProject = (state, action) => {
   return updatedObject(state, {
     ...action.projectInfo,
-    projectKey: action.projectInfo.projectKey,
-    
+    _id: action.projectInfo._id,
+  });
+};
+
+const fetchBuilds = (state, action) => {
+  return updatedObject(state, {
+    builds: action.payload
   });
 };
 
@@ -21,6 +29,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CURRENT_OPEN_PROJECT:
       return currentOpenProject(state, action);
+    case actionTypes.FETCH_BUILDS:
+      return fetchBuilds(state, action);
     default:
       return state;
   }

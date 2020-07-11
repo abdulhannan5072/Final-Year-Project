@@ -61,7 +61,7 @@ const createmodule = React.lazy(() => import('./phases/Module/create'));
 // const settings = React.lazy(() => import('./components/Account/Settings'));
 const envAdaptation = React.lazy(() => import('./phases/Changephase/EnvironmentalAdaptation'));
 const AdaptationM =React.lazy(() => import('./phases/Changephase/AdoptativeMaintenance/AdoptativeMaintenance'));
-const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'));
+// const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'));
 const FaultRepairs=React.lazy(() => import('./phases/Changephase/FaultRepairs/faultpairs'));
 const funAddition = React.lazy(() => import('./phases/Changephase/FunctionalityAddition'));
 const perfectiveM = React.lazy(() => import('./phases/Changephase/PerfectiveMaintenance/PerfectiveMaintenance'));
@@ -70,6 +70,8 @@ const TaskManagement=React.lazy(() => import('./phases/TaskManagement/Task'));
 // const testphase =React.lazy(()=> import('./phases/Testphase/create'));
 const defectManagement =React.lazy(()=> import('./phases/DefectManagement/create'));
 const Defect =React.lazy(()=> import('./phases/DefectManagement/Defect'));
+const createfaultRepairs =React.lazy(()=> import('./phases/Changephase/FaultRepairs/Create'));
+const editfaultRepairs =React.lazy(()=> import('./phases/Changephase/FaultRepairs/Edit'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -122,35 +124,37 @@ const routes = [
   // { path: '/users', exact: true, name: 'Users', component: users },
   // { path: '/users/invite', exact: true, name: 'Invite', component: invite },
 
-  { path: '/:key/module', exact: true, name: 'Module', component: Auth(module, true) },
-  { path: '/:key/module/create', exact: true, name: 'Create Module', component: Auth(createmodule, true)},
-  { path: '/:key/module/:id', exact: true, name: 'Edit Module', component: Auth(editModule, true)},
+  { path: '/:Pid/module', exact: true, name: 'Module', component: Auth(module, true) },
+  { path: '/:Pid/module/create', exact: true, name: 'Create Module', component: Auth(createmodule, true)},
+  { path: '/:Pid/module/:id', exact: true, name: 'Edit Module', component: Auth(editModule, true)},
 
-  { path: '/:key/build', exact: true, name: 'Build', component: Auth(build, true)},
-  { path: '/:key/build/create', exact: true, name: 'Create Build', component: Auth(createBuild, true) },
-  { path: '/:key/build/:id', exact: true, name: 'Edit Build', component: Auth(editBuild, true)},
+  { path: '/:Pid/build', exact: true, name: 'Build', component: Auth(build, true)},
+  { path: '/:Pid/build/create', exact: true, name: 'Create Build', component: Auth(createBuild, true) },
+  { path: '/:Pid/build/:id', exact: true, name: 'Edit Build', component: Auth(editBuild, true)},
 
   // { path: '/project/changePhase', exact: true, name: 'Invite', component: changephase },
 
-  { path: '/:key/changePhase/environmentalAdaptation/create', exact: true, name: 'Invite', component: envAdaptation },
-  { path: '/:key/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: AdaptationM },
+  { path: '/:Pid/changePhase/environmentalAdaptation/create', exact: true, name: 'Create', component: Auth(envAdaptation, true) },
+  { path: '/:Pid/changePhase/environmentalAdaptation', exact: true, name: 'Environmental Adaptation', component: Auth(AdaptationM, true) },
 
-  { path: '/:key/changePhase/faultRepairs/create', exact: true, name: 'Invite', component: faultRepairs },
-  { path: '/:key/changePhase/faultRepairs', exact: true, name: 'Invite', component: FaultRepairs },
+  // { path: '/:Pid/changePhase/faultRepairs/create', exact: true, name: 'Create', component: faultRepairs },
+  { path: '/:Pid/changePhase/faultRepairs', exact: true, name: 'Fault Repairs', component: Auth(FaultRepairs, true) },
+  { path: '/:Pid/changePhase/faultRepairs/create', exact: true, name: 'Create', component: Auth(createfaultRepairs, true) },
+  { path: '/:Pid/changePhase/faultRepairs/:id', exact: true, name: 'Edit', component: Auth(editfaultRepairs, true) },
 
-  { path: '/:key/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: perfectiveM },
-  { path: '/:key/changePhase/functionatilityAddition/create', exact: true, name: 'Invite', component: funAddition },
+  { path: '/:Pid/changePhase/functionatilityAddition', exact: true, name: 'Functionatility Addition', component: Auth(perfectiveM, true) },
+  { path: '/:Pid/changePhase/functionatilityAddition/create', exact: true, name: 'Create', component: Auth(funAddition, true) },
 
   // { path: '/profile', exact: true, name: 'Invite', component: profile },
   // { path: '/settings', exact: true, name: 'Invite', component: settings },
 
-  { path: '/:key/createTask', exact: true, name: 'Task', component: taskManagemnt },
-  { path: '/:key/Task', exact: true, name: 'Task', component: TaskManagement },
+  { path: '/:Pid/createTask', exact: true, name: 'Task', component: taskManagemnt },
+  { path: '/:Pid/Task', exact: true, name: 'Task', component: TaskManagement },
 
   // { path: '/project/createTest', exact: true, name: 'Test', component: testphase },
 
-  { path: '/:key/createDefect', exact: true, name: 'Test', component: defectManagement },
-  { path: '/:key/Defect', exact: true, name: 'Test', component: Defect },
+  { path: '/:Pid/createDefect', exact: true, name: 'Test', component: defectManagement },
+  { path: '/:Pid/Defect', exact: true, name: 'Test', component: Defect },
 
 ];
 

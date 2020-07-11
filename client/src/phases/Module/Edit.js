@@ -46,6 +46,7 @@ class Create extends Component {
         loading: false,
         data: await response.data,
       });
+      console.log(this.state)
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +69,7 @@ class Create extends Component {
             variant: "success",
           });
           this.props.history.push(
-            "/" + this.props.match.params.key + "/module"
+            "/" + this.props.match.params.Pid + "/module"
           );
         }
       })
@@ -111,7 +112,7 @@ class Create extends Component {
                     >
                       Update
                     </Button>
-                    <Link to={"/" + this.props.match.params.key + "/module"}>
+                    <Link to={"/" + this.props.match.params.Pid + "/module"}>
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>

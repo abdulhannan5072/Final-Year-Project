@@ -41,7 +41,7 @@ class Create extends Component {
       ...values,
       createdBy: this.props.currentUser,
       createdDate: getCurrentDate(),
-      projectKey: this.props.match.params.key,
+      project: this.props.match.params.Pid,
     };
     axios.post("/api/build/create", data).then((res) => {
       this.setState= {
@@ -51,7 +51,7 @@ class Create extends Component {
         this.props.enqueueSnackbar("Build created", {
           variant: "success",
         });
-        this.props.history.push("/" + this.props.match.params.key + "/build");
+        this.props.history.push("/" + this.props.match.params.Pid + "/build");
       }
     });
   };
@@ -85,7 +85,7 @@ class Create extends Component {
                     >
                       Create Build
                     </Button>
-                    <Link to={"/" + this.props.match.params.key + "/build"}>
+                    <Link to={"/" + this.props.match.params.Pid + "/build"}>
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>

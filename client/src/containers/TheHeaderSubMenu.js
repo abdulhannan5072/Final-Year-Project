@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 class TheHeaderSubMenu extends React.Component {
   state = {
-    current: this.props.nav_link.default,
+    current: 'faults',
   };
 
   handleClick = e => {
@@ -13,10 +13,10 @@ class TheHeaderSubMenu extends React.Component {
 
   render() {
 
-    const MenuItems = this.props.nav_link.items.map((item) => (
+    const MenuItems = this.props.nav_link.map((item) => (
         
             <Menu.Item key={item.key} >
-                <Link to={item.url}  >
+                <Link to={item.to}  >
                     {item.title}
                 </Link>
             </Menu.Item>

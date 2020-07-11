@@ -64,7 +64,7 @@ class Projects extends Component {
 
   onProjectClickHandle = (record) => {
     this.props.currentProject(record);
-    this.props.history.push("/" + record.projectKey + "/build");
+    this.props.history.push("/" + record._id + "/build");
   };
 
   onProjectDeleteHandle = (record) => {
@@ -76,11 +76,10 @@ class Projects extends Component {
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
-          let updatedData = [...this.state.data];
-          updatedData = updatedData.filter(
-            (data) => data.id !== record._id
-          );
-          console.log(this.state.data)
+          // let updatedData = [...this.state.data];
+          // updatedData = updatedData.filter(
+          //   (data) => data.id !== record._id
+          // );
           this.fetch()
         }
       })

@@ -21,9 +21,9 @@ class Module extends Component {
 
   async fetch() {
     this.setState({ loading: true });
-		const key = this.props.match.params.key;
+		const Pid = this.props.match.params.Pid;
       try {
-        const response = await axios.get("/api/getModule/"+ key)
+        const response = await axios.get("/api/getModule/"+ Pid)
         this.setState({
           loading: false,
           data: await response.data,
@@ -43,11 +43,6 @@ class Module extends Component {
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
-          let updatedData = [...this.state.data];
-          updatedData = updatedData.filter(
-            (data) => data.id !== record._id
-          );
-          console.log(this.state.data)
           this.fetch()
         }
       })
@@ -57,8 +52,8 @@ class Module extends Component {
   };
 
   onProjectEditHandle = (record) => {
-    const key = this.props.match.params.key;
-    this.props.history.push("/" + key + "/module/"+record._id);
+    const Pid = this.props.match.params.Pid;
+    this.props.history.push("/" + Pid + "/module/"+record._id);
   }
   render() {
     const columns = [
@@ -115,6 +110,7 @@ class Module extends Component {
     ];
 
     const { data, loading } = this.state;
+    
     return (
       <Aux>
         <Row>
@@ -126,7 +122,7 @@ class Module extends Component {
               <div className="col-3 text-right">
               <Button type="primary" className="float-right">
                   <Link
-                    to={"/" + this.props.match.params.key + "/module/create"}
+                    to={"/" + this.props.match.params.Pid + "/module/create"}
                     className="text-light"
                   >
                     Create Module

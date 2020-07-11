@@ -68,7 +68,7 @@ class Create extends Component {
           this.props.enqueueSnackbar("Updated sucessfully", {
             variant: "success",
           });
-          this.props.history.push("/" + this.props.match.params.key + "/build");
+          this.props.history.push("/" + this.props.match.params.Pid + "/build");
         }
       })
       .catch((err) => {
@@ -116,7 +116,7 @@ class Create extends Component {
                     >
                       Update
                     </Button>
-                    <Link to={"/" + this.props.match.params.key + "/build"}>
+                    <Link to={"/" + this.props.match.params.Pid + "/build"}>
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>

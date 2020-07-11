@@ -1,8 +1,8 @@
-export default function path(navitems, projectKey) {
+export default function path(navitems, projectId) {
   let newitems = navitems.map((item) => {
     return {
       ...item,
-      to: "/" + projectKey + item.to,
+      to: "/" + projectId + item.to,
     }
   });
   return newitems;

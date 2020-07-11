@@ -20,9 +20,9 @@ class Build extends Component {
 
   async fetch() {
     this.setState({ loading: true });
-    const key = this.props.match.params.key;
+    const Pid = this.props.match.params.Pid;
     try {
-      const response = await axios.get("/api/getBuild/" + key);
+      const response = await axios.get("/api/getBuild/" + Pid);
       this.setState({
         loading: false,
         data: await response.data,
@@ -39,11 +39,7 @@ class Build extends Component {
     axios
       .post("/api/build/delete", id)
       .then((res) => {
-        console.log(res);
         if (res.request.status === 201) {
-          let updatedData = [...this.state.data];
-          updatedData = updatedData.filter((data) => data.id !== record._id);
-          console.log(this.state.data);
           this.fetch();
         }
       })
@@ -53,8 +49,8 @@ class Build extends Component {
   };
 
   onProjectEditHandle = (record) => {
-    const key = this.props.match.params.key;
-    this.props.history.push("/" + key + "/build/" + record._id);
+    const Pid = this.props.match.params.Pid;
+    this.props.history.push("/" + Pid + "/build/" + record._id);
   };
   render() {
     const columns = [
@@ -125,7 +121,7 @@ class Build extends Component {
               <div className="col-3 text-right">
                 <Button type="primary" className="float-right">
                   <Link
-                    to={"/" + this.props.match.params.key + "/build/create"}
+                    to={"/" + this.props.match.params.Pid + "/build/create"}
                     className="text-light"
                   >
                     Create Build

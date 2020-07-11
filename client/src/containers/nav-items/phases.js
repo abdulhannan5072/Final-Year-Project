@@ -13,20 +13,20 @@ export default [
     }, 
     {
         _tag: 'CSidebarNavItem',
-        name: 'Fault Repairs',
-        to: '/project/changePhase/faultRepairs/',
+        name: 'Maintainence Phases',
+        to: '/changePhase/faultRepairs',
         icon: 'cil-speedometer',
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Task Management',
-        to: '/project/Task/',
+        to: '/Task',
         icon: 'cil-drop',
     }, 
     {
         _tag: 'CSidebarNavItem',
         name: 'Defect Management',
-        to: '/project/Defect/',
+        to: '/Defect/',
         icon: 'cil-speedometer',
     },
     {

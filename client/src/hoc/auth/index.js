@@ -16,9 +16,9 @@ function Auth(ComposedClass, reload) {
 
     componentDidMount() {
       this.props.authChk();
-      if (this.props.match.params.key) {
+      if (this.props.match.params.Pid) {
         const key = {
-          projectKey: this.props.match.params.key
+          _id: this.props.match.params.Pid
         }
         this.props.currentProject(key);
       }
@@ -57,7 +57,6 @@ function Auth(ComposedClass, reload) {
   const mapStateToProps = (state) => {
     return {
       isAuth: state.auth.isAuth,
-      defaultPath: state.reducer.defaultPath,
       authInfo: state.auth,
     };
   };

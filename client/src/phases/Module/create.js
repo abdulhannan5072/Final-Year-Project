@@ -40,7 +40,7 @@ class Create extends Component {
       ...values,
       createdBy: this.props.currentUser,
       createdDate: getCurrentDate(),
-      projectKey: this.props.match.params.key,
+      project: this.props.match.params.Pid,
     };
     axios.post("/api/module/create", data).then((res) => {
       console.log(res);
@@ -51,7 +51,7 @@ class Create extends Component {
         this.props.enqueueSnackbar("Module created", {
           variant: "success",
         });
-        this.props.history.push("/" + this.props.match.params.key + "/module");
+        this.props.history.push("/" + this.props.match.params.Pid + "/module");
       }
     });
   };

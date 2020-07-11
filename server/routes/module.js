@@ -13,8 +13,8 @@ routes.post("/api/module/create", (req, res) => {
 
 //Get
 
-routes.get("/api/getModule/:key", (req, res) => {
-  Module.find({ projectKey: req.params.key }, (err, data) => {
+routes.get("/api/getModule/:id", (req, res) => {
+  Module.find({ project: req.params.id }, (err, data) => {
     if (err) return res.status(400).send(err);
     res.status(200).send(data);
   });

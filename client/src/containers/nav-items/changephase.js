@@ -1,23 +1,18 @@
-export default {
-    
-    default: 'faults',
-    
-    items:[
+export default [
         {
-            title: 'Fault Repairs',
+            title: 'Corrective Maintenance',
             key:"faults",
-            url: '/project/changePhase/faultRepairs',
+            to: '/changePhase/faultRepairs',
         },
         {
             title: 'Functionatility Addition',
             key:"funAdd",
-            url: '/project/changePhase/functionatilityAddition',
+            to: '/changePhase/functionatilityAddition',
         },
         {
             title: 'Environmental Adaptation',
             key:"adopMaintenance",
-            url: '/project/changePhase/environmentalAdaptation',
+            to: '/changePhase/environmentalAdaptation',
         },
         
     ]
-}
