@@ -29,8 +29,6 @@ const validationSchema = Yup.object().shape({
   fault: Yup.string().required("Required"),
 });
 
-const select = ["select "];
-const faultType = ["Codding Error", "Requirments Error", "Design Error"];
 
 class Create extends Component {
   state = {

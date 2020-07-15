@@ -49,6 +49,12 @@ const routes = require("./routes");
 app.use("/", routes);
 
 const port = process.env.port || 4000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log("SERVER is running on port " + port);
 });
+
+const io = require('./socket').init(server);
+
+const socketManager = require('./controllers/socketManager');
+
+io.on('connection', socketManager)

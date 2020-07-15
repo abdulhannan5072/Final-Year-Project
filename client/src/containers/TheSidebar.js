@@ -21,10 +21,12 @@ import navigation from "./_nav";
 import nav_home from "./nav-items/home";
 import nav_phases from "./nav-items/phases";
 import path from "../hoc/project/path";
+import {sidebarShow} from '../store/actions'
+
 
 const TheSidebar = (props) => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.sidebarShow);
+  const show = useSelector((state) => state.reducer.sidebarShow);
   const projectId = useSelector((state) => state.project._id);
   const location = useLocation();
   const currentKey = location.pathname.split("/")[2] || "/";
@@ -32,9 +34,9 @@ const TheSidebar = (props) => {
   let nav = navigation;
 
   switch (currentKey) {
-    case "dashboard":
-      nav = nav_home;
-      break;
+    // case "dashboard":
+    //   nav = nav_home;
+    //   break;
     case "build":
     case "module":
     case "changePhase":
@@ -47,7 +49,7 @@ const TheSidebar = (props) => {
   return (
     <CSidebar
       show={show}
-      onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
+      onShowChange={(val) => dispatch(sidebarShow(val))}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon

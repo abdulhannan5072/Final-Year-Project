@@ -16,8 +16,8 @@ const projectSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    user: {
-      type: mongoose.Types.ObjectId,
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       require: true,
     },

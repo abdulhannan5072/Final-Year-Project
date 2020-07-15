@@ -5,3 +5,5 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const CURRENT_OPEN_PROJECT = 'CURRENT_OPEN_PROJECT';
 export const FETCH_BUILDS = 'FETCH_BUILDS';
+export const MSG_DRAWER = 'MSG_DRAWER';
+export const SIDEBAR_SHOW = 'SIDEBAR_SHOW';

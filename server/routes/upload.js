@@ -16,7 +16,7 @@ routes.post("/api/upload", (req, res) => {
   const upload = new Upload({
     fileName: req.file.filename,
     url: req.file.path,
-    // user: req.body.user
+    user: req.body.user
   });
   console.log(upload)
   // return res.status(200).send('done')

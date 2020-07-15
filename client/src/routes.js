@@ -46,8 +46,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 // const Dashboard = React.lazy(() => import('./phases/Dashboard/Dashboard'));
 const Projects = React.lazy(() => import('./phases/Projects/Projects'));
 const createProject = React.lazy(() => import('./phases/Projects/Create'));
-// const users = React.lazy(() => import('./components/Users/Users'));
-// const invite = React.lazy(() => import('./components/Users/Invite'));
+
 const build = React.lazy(() => import('./phases/Build/Build'));
 // const changephase = React.lazy(() => import('./phases/Changephase/Changephase'));
 const createBuild = React.lazy(() => import('./phases/Build/create'));
@@ -77,6 +76,9 @@ const adaptiveCreate = React.lazy(() => import('./phases/Changephase/AdaptativeM
 const adaptiveMaintenance = React.lazy(() => import('./phases/Changephase/AdaptativeMaintenance/AdaptativeMaintenance'));
 const editadaptive = React.lazy(() => import('./phases/Changephase/AdaptativeMaintenance/Edit'));
 
+
+// const rooms = React.lazy(() => import('./chat/Rooms'));
+const chat = React.lazy(() => import('./chat/Chat'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -126,8 +128,6 @@ const routes = [
   { path: '/projects', exact: true, name: 'Projects', component: Auth(Projects,true) },
   { path: '/projects/create', exact: true, name: 'Create new Project', component: Auth(createProject, true) },
 
-  // { path: '/users', exact: true, name: 'Users', component: users },
-  // { path: '/users/invite', exact: true, name: 'Invite', component: invite },
 
   { path: '/:Pid/module', exact: true, name: 'Module', component: Auth(module, true) },
   { path: '/:Pid/module/create', exact: true, name: 'Create Module', component: Auth(createmodule, true)},
@@ -162,6 +162,10 @@ const routes = [
 
   { path: '/:Pid/createDefect', exact: true, name: 'Test', component: defectManagement },
   { path: '/:Pid/Defect', exact: true, name: 'Test', component: Defect },
+
+
+  // { path: '/chat/rooms', exact: true, name: 'Rooms', component: rooms },
+  { path: '/chat', exact: true, name: 'Rooms', component: chat },
 
 ];
 

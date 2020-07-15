@@ -1,19 +1,61 @@
 // // Here you can add other styles
+
+.fixed-size-chat-div {
+  // position: fixed;
+    // background-color: white;
+    // padding-left: 10px;
+    // padding-right: 10px;
+    overflow-y: auto;
+    // top: 150px;
+    // bottom: 20px;
+    // padding: 20px;
+    width: 100%;
+    // position: fixed;
+    // height: 600px;
+    height: 67vh;
+}
+
+.message-container-div-R {
+  background-color: #eeeeee;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  border-radius: 10px 10px 3px 10px;
+}
+.message-container-div-L {
+  background-color: #40A9FF;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  color: white;
+  border-radius: 10px 10px 10px 3px;
+}
+
+
+//// Ant design 
+
 .ant-form-item-label {
   margin: 0 0 4px;
   color: rgb(107, 119, 140) ;
   height: 25px;
 }
 
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+
+.upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
+  float: right;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}
 
 
-// .container {
-//   text-align: center;
-//   padding: 20px;
+// .site-drawer-render-in-current-wrapper {
+//   position: relative;
+//   overflow: hidden;
 // }
-
-// .form-container {
-//   width: 300px;
-//   }
-
-

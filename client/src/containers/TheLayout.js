@@ -13,6 +13,9 @@ import TheHeaderSubMenu from './TheHeaderSubMenu';
 // import HeaderH from './Header'
 import path from "../hoc/project/path";
 
+import Chat from '../components/RightDrawer/RTL_Drawer'
+
+
 const TheLayout = (props) => {
 
   const location = useLocation();
@@ -35,7 +38,8 @@ const TheLayout = (props) => {
         <TheHeader/>
         {Subnav}
 
-        <div className="c-body">
+        <div className="c-body site-drawer-render-in-current-wrapper">
+          <Chat />
           <TheContent/>
         </div>
         {/* <TheFooter/> */}

@@ -51,8 +51,8 @@ class Create extends Component {
   onSubmit = (values, { setSubmitting }) => {
     const data = {
       ...values,
-      createdBy: this.props.currentUser,
-      createdDate: getCurrentDate(),
+      owner: this.props.currentUser,
+      
     };
     axios.post("/api/projects/create", data).then((res) => {
       if (res.status === 200) {
@@ -114,7 +114,7 @@ class Create extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.username,
+    currentUser: state.auth.user.userId,
   };
 };
 

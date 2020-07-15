@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 
@@ -8,10 +8,7 @@ import { Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { Button, Space, Popconfirm } from "antd";
-import {
-  DeleteTwoTone,
-  EditTwoTone,
-} from "@ant-design/icons";
+import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
 
 import Table from "../../shared/components/Table";
 import { currentOpenProject } from "../../store/actions";
@@ -19,7 +16,6 @@ import { currentOpenProject } from "../../store/actions";
 const textStyle = {
   color: "white",
 };
-
 
 class Projects extends Component {
   state = {
@@ -38,17 +34,14 @@ class Projects extends Component {
 
   async fetch(params) {
     this.setState({ loading: true });
-
     try {
-      const response = await axios.get("/api/getProjects");
+      const response = await axios.get("/api/getProjects/" + this.props.owner);
       this.setState({
         loading: false,
         data: await response.data,
-        // pagination: {
-        //   ...params,
-        //   total: response.data.length,
-        // },
+        
       });
+      console.log(response)
     } catch (err) {
       console.log(err);
     }
@@ -76,11 +69,7 @@ class Projects extends Component {
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
-          // let updatedData = [...this.state.data];
-          // updatedData = updatedData.filter(
-          //   (data) => data.id !== record._id
-          // );
-          this.fetch()
+          this.fetch();
         }
       })
       .catch((err) => {
@@ -124,36 +113,28 @@ class Projects extends Component {
           { text: "Desktop Application", value: "desktop" },
         ],
       },
+      
       {
-        title: "Lead",
-        dataIndex: "createdBy",
-        key: "createdBy",
-        sorter: "true",
-        colSearch: true,
-      },
-      {
-        title: "Created On",
-        dataIndex: "createdDate",
-        key: "createdDate",
-        sorter: "true",
-      },
-      {
-        align: 'right',
-        render: (record) => (
-          <Space size="small">
-            <Button
-              icon={<EditTwoTone />}
-              type="link"
-              onClick={() => this.onProjectEditHandle(record)}
-            />
-            <Popconfirm title="Are you sure？" okText="Yes" onConfirm={() => this.onProjectDeleteHandle(record)} cancelText="No">
+        align: "right",
+        render: (record) => {
+          return record.owner === this.props.owner ? (
+            <Space size="small">
               <Button
-                icon={<DeleteTwoTone />}
+                icon={<EditTwoTone />}
                 type="link"
+                onClick={() => this.onProjectEditHandle(record)}
               />
-            </Popconfirm>
-          </Space>
-        ),
+              <Popconfirm
+                title="Are you sure？"
+                okText="Yes"
+                onConfirm={() => this.onProjectDeleteHandle(record)}
+                cancelText="No"
+              >
+                <Button icon={<DeleteTwoTone />} type="link" />
+              </Popconfirm>
+            </Space>
+          ) : null;
+        },
       },
     ];
 
@@ -277,11 +258,15 @@ class Projects extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => {
+  return {
+    owner: state.auth.user.userId,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     currentProject: (project) => dispatch(currentOpenProject(project)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Projects);
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);

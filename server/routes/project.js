@@ -39,8 +39,8 @@ routes.post("/api/projects/find", function (req, res) {
 
 //getData
 
-routes.get("/api/getProjects", (req, res) => {
-  Project.find({}, (err, data) => {
+routes.get("/api/getProjects/:id", (req, res) => {
+  Project.find({owner: req.params.id}, (err, data) => {
     if (err) return res.status(400).send(err);
     res.status(200).send(data);
   });

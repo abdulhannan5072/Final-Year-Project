@@ -1,50 +1,49 @@
-import 'react-app-polyfill/ie11'; // For IE 11 support
-import 'react-app-polyfill/stable';
-import './polyfill'
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { SnackbarProvider } from 'notistack';
+import "react-app-polyfill/ie11"; // For IE 11 support
+import "react-app-polyfill/stable";
+import "./polyfill";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { SnackbarProvider } from "notistack";
+
+import { BrowserRouter } from "react-router-dom";
+import { createStore, compose, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+
+import { icons } from "./assets/icons";
+import Thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import rootReducer from "./store/reducers";
+// import rootSaga from './store/sagas';
 
 
-import {BrowserRouter} from 'react-router-dom';
-import { createStore, compose, applyMiddleware, combineReducers} from 'redux';
 
-import { icons } from './assets/icons'
-import Thunk from 'redux-thunk';
-import { Provider } from 'react-redux'
-import reducer from './store/reducer'
-import authReducer from './store/reducers/auth';
-import projectReducer from './store/reducers/projects';
 
-React.icons = icons
-
+React.icons = icons;
+const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const rootReducers = combineReducers({
-    reducer: reducer,
-    auth: authReducer,
-    project: projectReducer
-})
-
-const store = createStore(rootReducers, composeEnhancers(applyMiddleware(Thunk)));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(Thunk))
+);
+// sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <SnackbarProvider 
+      <SnackbarProvider
         anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
-        maxSnack={3} 
+        maxSnack={3}
       >
-        <App />
+          <App />
       </SnackbarProvider>
     </BrowserRouter>
-  </Provider>, 
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

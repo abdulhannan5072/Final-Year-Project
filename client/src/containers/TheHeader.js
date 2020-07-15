@@ -15,6 +15,8 @@ import CIcon from '@coreui/icons-react'
 
 // routes config
 import routes from '../routes'
+import {msgDrawer} from '../store/actions'
+
 
 import { 
   TheHeaderDropdown,
@@ -25,7 +27,11 @@ import {
 
 const TheHeader = () => {
   const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sidebarShow)
+  const sidebarShow = useSelector(state => state.reducer.sidebarShow)
+  const msgbarShow = useSelector(state => state.reducer.msgDrawerState)
+
+
+  const msgDrawerS = (data) => dispatch(msgDrawer(data))
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
@@ -35,6 +41,10 @@ const TheHeader = () => {
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
     dispatch({type: 'set', sidebarShow: val})
+  }
+
+  const msgDrawerHandle = () => {
+    msgDrawerS(!msgbarShow)
   }
 
   return (
@@ -78,7 +88,7 @@ const TheHeader = () => {
           routes={routes} 
         />
           <div className="d-md-down-none mfe-2 c-subheader-nav">
-            <CLink className="c-subheader-nav-link"href="#">
+            <CLink className="c-subheader-nav-link" onClick={msgDrawerHandle}>
               <CIcon name="cil-speech" alt="Settings" />
             </CLink>
             <CLink 

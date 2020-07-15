@@ -19,12 +19,12 @@ const adaptivemaintenanceSchema = mongoose.Schema(
       require: true,
     },
     project: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
       require: true,
     },
     user: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       require: true,
     },
