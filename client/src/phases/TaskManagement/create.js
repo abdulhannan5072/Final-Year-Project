@@ -2,21 +2,23 @@ import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
 import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik, QuillEditorFormik, SelectTextFieldFormik
 } from '../../shared/components';
-import {Row, Col, Button,
-} from 'react-bootstrap';
+
 import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
+
 import {Link} from 'react-router-dom';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertLinkIcon from '@material-ui/icons/InsertLink';
-import QuillEditor from '../../components/Editor/QuillEditor';
-import {InputLabel, Paper, Button as MButton} from '@material-ui/core';
+import { AntInput,AntSelect } from "../../shared/components";
+import {  Field } from "formik";
+import { Col, Row } from "react-bootstrap";
+import { Button, Card } from "antd";
+import {InputLabel,  Button as MButton} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import * as Yup from 'yup';
 
 
-const items =[
+const status =[
     {
         value: 'to do',
         label: 'To Do'
@@ -38,15 +40,22 @@ const initialValues= {
     url: '',
     linkText: '',
     assignTo: '',
-    reporter:'',
+    attachment:'',
+    startDate:'',
     dueDate:'',
     createdBy: ''
 };
 
 const validationSchema= Yup.object().shape({
     taskname: Yup.string()
-        .min(2, 'Too Short!')
-        .required('Required'),
+        .min(3, 'Too Short!')
+        .required('Required').max(12,"Too Long "),
+        status: Yup.string().required('Required'),
+        url: Yup.string().required('Required'),
+        assignTo: Yup.string().required('Required'),
+        startDate: Yup.string().required('Required'),
+        dueDate: Yup.string().required('Required'),
+
 });
 
 class CreateTask extends Component{
@@ -78,76 +87,94 @@ class CreateTask extends Component{
                 >
                     {(props)=>(
                         <Form>
-                            <Paper className='p-2'>
+                            <Card>
                                 <div  >
-                                    <div className='d-flex  m-2 '>
-                                        <Button variant="dark" size='sm' type='submit' >Update</Button>
-                                        <div className='ml-auto' >
-                                            <Link to='//#region ' ><IconButton><Close/></IconButton></Link>
-                                        </div>
-                                        
-                                    </div>
-                                    <div className='mt-2' >
-                                        <InputFormik fullWidth name='taskName' id='name'  />
-                                    </div>
-                                    <div className='m-2' >
-                                        
-                                        <IconButton>
-                                            <AttachFileIcon  />
-                                        </IconButton>
-                                        
-                                        <IconButton>
-                                            <InsertLinkIcon  />
-                                        </IconButton>
-                                    </div>
-
-                                    <div className='m-2'>
-                                        <SelectTextFieldFormik name='status'  items={items} />
-                                    </div>
-
+                        
+                                  
+                                     <Row>
+                                     <Col sm="6">
+                            <div className="">
+                          <Field
+                          component={AntSelect}
+                          name="status"
+                          options={status}
+                          label="status"
+                          hasFeedback
+                        />
+                              </div>
+                             </Col>
+                                
+                                     <Col sm="6">
+                               <div className="mt-2">
+                                 <Field
+                                 component={AntInput}
+                                  label="Attachment"
+                                    name="attachment"
+                                  hasFeedback
+                                    />
+                                    
+                                     </div>
+                                     </Col>
+                                     </Row>
+                                     <Row>
+                                    <Col md="4">
+                               <div className="mt-2">
+                                 <Field
+                                 component={AntInput}
+                                  label="Assign To"
+                                    name="assignTo"
+                                  hasFeedback
+                                    />
+                                     </div>
+                                     </Col>
+                                    
+                               <Col md="4">
+                               <div className="mt-2">
+                                 <Field
+                                 component={AntInput}
+                                  label="Start Date"
+                                    name="startDate"
+                                  hasFeedback
+                                    />
+                                     </div>
+                                     </Col>
+                                   
+                                     <Col md="4" >
+                               <div className="mt-2">
+                                 <Field
+                                 component={AntInput}
+                                  label="Due Date"
+                                    name="dueDate"
+                                  hasFeedback
+                                    />
+                                     </div>
+                                     </Col>
+                                     </Row>
+                                   
+                      <Row>
+                               <Col >
+                               <div className="mt-2">
+                                 <Field
+                                 component={AntInput}
+                                  label="Task Name"
+                                    name="taskname"
+                                  hasFeedback
+                                    />
+                                     </div>
+                                     </Col>
+                                     </Row>
                                     <div className='m-2' >
                                         <QuillEditorFormik 
                                             label="Description"
                                             name='description'
                                         />
-                                    </div>
-                                    <div className='m-2' >
-                                        <label>Attachments</label>
-                                        <div></div>
-                                    </div>
-                                    <div className='m-2'>
-                                        <label>Web links</label>
-                                        <div className='d-inline-flex' >
-                                            <InputFormik name='url' id='url' label='URL' className='mr-2' border='true' bgc='true'/>
-                                            <InputFormik name='linkText' id='label' label='Link text' border='true' bgc='true' />
-                                        </div>
-                                        <div  className='d-flex justify-content-end pt-2'  >
-                                            <Button size='sm' variant="dark" className='mr-2 mt-2'>Link</Button>
-                                            <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
-
-                                        </div>
-                                    </div>
-                                    <div className='m-2' >
-                                        <InputLabel shrink >Assignee</InputLabel>
-                                        <InputFormik fullWidth name='assignTo'  id='name' border='true' />
-                                        
-                                    </div>
-                                    <Divider className='mt-4 mb-3' />
-                                    <div className='m-2' >
-                                        <InputLabel shrink >Reporter</InputLabel>
-                                        <InputFormik fullWidth name='reporter'  id='name'  border='true'/>
-                                        
-                                    </div>
-                                    <Divider className='mt-4 mb-3 ' />
-                                    <Divider className='mt-4 mb-3' />
-                                    <div className='m-2' >
-                                        <InputLabel shrink >Due Date</InputLabel>
-                                        <InputFormik fullWidth name='dueDate'  id='name'  border='true'/>
-                                        
-                                    </div>
-                                    <Divider className='mt-4 mb-3 ' />
+                                    </div> 
+                                    <div className='d-flex  m-2 '>
+                                        <Button variant="dark" size='sm' type='submit' >Update</Button>
+                                        <Button variant="dark" size='sm' type='submit' >Cancel</Button>
+                                    </div> 
                                 </div>
-                            </Paper>
+                            </Card>
                         </Form>
                     )}
                 </Formik>
@@ -168,31 +195,13 @@ class CreateTask extends Component{
         </Row>
         <Row>
            
-            <Col md={8} >
-                <Paper className='p-2'>
-                    <div>
-                        <FlatCard  title="Task Name" />
-                        <FlatCard  title="Task Name" />
-                        <FlatCard  title="Task Name" />
-                    </div>
-                    <div className='mt-2'>
-                        <MButton
-                            variant="contained"
-                            color="default"
-                            className=''
-                            startIcon={<AddIcon />}
-                        >
-                            Create
-                        </MButton>
-                    </div>
-                </Paper>
-            </Col>
+      
             
             
-            <Col md={4} >
+            <Col>
                 {taskDetails}
             </Col>
-            
+          
         </Row>
       </Aux>
     );

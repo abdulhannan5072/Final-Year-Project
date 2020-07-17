@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import { Button } from "react-bootstrap";
-import Close from "@material-ui/icons/Close";
-import { IconButton, Paper } from "@material-ui/core";
+import { AntInput,AntSelect } from "../../shared/components";
+import {  Field } from "formik";
+import { Col, Row } from "react-bootstrap";
+import { Button, Card } from "antd";
+import { IconButton } from "@material-ui/core";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Aux from "../../hoc/_Aux";
@@ -44,10 +45,15 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  projectName: Yup.string().min(2, "Too Short!").required("Required"),
+  projectName: Yup.string().min(2, "Too Short!").required("Required").max(10,"Too Long!"),
+  projectKey:Yup.string().required("Enter  this Field"),
+  projectType:Yup.string().required("Select this Field")
 });
 
 class Create extends Component {
+  state={
+    loading:false
+  }
   onSubmit = (values, { setSubmitting }) => {
     const data = {
       ...values,
@@ -67,12 +73,10 @@ class Create extends Component {
         <div className="page">
           <div className="d-flex flex-row-reverse mb-3 ">
             <Link to="/project/build">
-              <IconButton>
-                <Close />
-              </IconButton>
+            
             </Link>
           </div>
-          <Paper className="p-5  ">
+          <Card>
             <div className="mb-2">
               <h3>Create Project</h3>
             </div>
@@ -84,28 +88,59 @@ class Create extends Component {
             >
               {(props) => (
                 <Form>
-                  <div className="mt-3">
-                    <TextFieldFormik label="Project" name="projectName" />
-                  </div>
+                   <Row>
+                    <Col sm="4" md="4">
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          label="Project Name"
+                          name="projectName"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm="4" md="4">
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          label="Project Key"
+                          name="projectKey"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
                   <div className="mt-2">
-                    <TextFieldFormik label="Key" name="projectKey" />
-                  </div>
-                  <div className="mt-2">
-                    <SelectTextFieldFormik
-                      label="Project type"
-                      items={ptype}
-                      name="projectType"
-                    />
+                  <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="projectType"
+                          options={ptype}
+                          label="Project Type"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
                   </div>
                   <div className="w-25">
-                    <Button className="mt-5 " variant="dark" type="submit">
+                    <Button  
+                    loading={this.state.loading}
+                      type="primary"
+                      htmlType="submit">
                       Create Project
                     </Button>
+                    <Link to={"/" + this.props.match.params.key + "/projects"}>
+                      <Button className="mr-2">Cancel</Button>
+                    </Link>
+                 
                   </div>
                 </Form>
               )}
             </Formik>
-          </Paper>
+          </Card>
         </div>
       </Aux>
     );

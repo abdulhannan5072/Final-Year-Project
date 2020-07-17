@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-import { Button } from "antd";
-import { Paper } from "@material-ui/core";
+import { AntInput } from "../../shared/components";
+import {  Field } from "formik";
+import { Col, Row } from "react-bootstrap";
+import { Button, Card } from "antd";
 import { withSnackbar } from "notistack";
 
 import Aux from "../../hoc/_Aux";
@@ -18,7 +19,7 @@ import {
 } from "../../shared/components";
 
 const validationSchema = Yup.object().shape({
-  module: Yup.string().min(2, "Too Short!").required("Required"),
+  module: Yup.string().min(2, "Too Short!").required("Required").max(10,"Too Long!"),
 });
 
 class Create extends Component {
@@ -82,7 +83,7 @@ class Create extends Component {
     return (
       <Aux>
         <div className="page">
-          <Paper className="p-5  ">
+          <Card>
             <div className="mb-2">
               <h3>Edit Module</h3>
             </div>
@@ -98,9 +99,18 @@ class Create extends Component {
             >
               {(props) => (
                 <Form>
-                  <div className="mt-3">
-                    <TextFieldFormik label="Module" name="module" />
-                  </div>
+                  <Row>
+                    <Col sm="4" md="4">
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          label="Module"
+                          name="module"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
                   <div className="mt-2">
                     <QuillEditorFormik label="Description" name="description" />
                   </div>
@@ -119,7 +129,7 @@ class Create extends Component {
                 </Form>
               )}
             </Formik>
-          </Paper>
+          </Card>
         </div>
       </Aux>
     );

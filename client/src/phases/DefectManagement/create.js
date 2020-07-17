@@ -9,14 +9,16 @@ import {
   TextFieldFormik,
   QuillEditorFormik,
 } from "../../shared/components";
+import { AntInput,AntSelect } from "../../shared/components";
+import {  Field } from "formik";
+import { Col, Row } from "react-bootstrap";
+import { Button, Card } from "antd";
 import { withSnackbar } from "notistack";
 import axios from "axios";
-import { Row, Col } from "react-bootstrap";
-
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
-import { Button } from "react-bootstrap";
-import { Paper } from "@material-ui/core";
+
 
 const types = [
   {
@@ -68,6 +70,21 @@ const priority = [
     label: "High ",
   },
 ];
+const status=[
+{
+  value: "to do",
+  label: "To Do",
+},
+{
+  value: "in progress",
+  label: "In Progress",
+
+},
+{
+  value: "done",
+  label: "Done",
+},
+];
 const os = [
   {
     value: "windows 10 ",
@@ -82,44 +99,36 @@ const os = [
     label: "Android ",
   },
 ];
-const severity = [
-  {
-    value: "select ",
-    label: "Select ",
-  },
-  {
-    value: "blocker ",
-    label: "Blocker ",
-  },
-  {
-    value: "minor",
-    label: "Minor",
-  },
-  {
-    value: "major",
-    label: "Major",
-  },
-];
+
 const initialValues = {
   defectDes: "",
   selectBuild: "",
   selectModule: "",
   defectType: "",
   os: "",
-  severity: "",
+  
   detailDes: "",
   assignTo: "",
   priority: "",
-  defectViewers: "",
+  status:""
 };
 const validationSchema = Yup.object().shape({
-  defect: Yup.string().min(3, "Too Short").required("this field is required"),
+  selectBuild: Yup.string().min(3, "Too Short").required("Select this field"),
+  selectModule: Yup.string().min(3, "Too Short").required("Select this field"),
+  defectType: Yup.string().min(3, "Too Short").required("Select this field"),
+  defectDes: Yup.string().min(3, "Too Short").required("This field is Required").min(1000,"Too Short ").max(2500,"Too Long "),
+  priority: Yup.string().min(3, "Too Short").required("Select this field"),
+  assignTo: Yup.string().min(3, "Too Short").required(" This field is Required"),
+  status: Yup.string().min(3, "Too Short").required("Select this field"),
+  os: Yup.string().min(3, "Too Short").required("Select this field"),
 });
 
 class Create extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
+    state={
+      loading:false
+    };
+  
 
   onSubmit = (values, { setSubmitting }) => {
     axios.post("/api/defect/create", values).then((res) => {
@@ -141,71 +150,89 @@ class Create extends Component {
       >
         {(props) => (
           <Form>
-            <Paper className="p-3">
+            <Card>
               <Row>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik
-                      label="Build"
-                      name="selectBuild"
-                      items={select}
-                    />
-                  </div>
-                </Col>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik
-                      label="Module"
-                      name="selectModule"
-                      items={select}
-                    />
-                  </div>
-                </Col>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik
-                      label="Priority"
-                      name="priority"
-                      items={priority}
-                    />
-                  </div>
-                </Col>
+              <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="selectBuild"
+                          options={select}
+                          label="Select Build"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="selectModule"
+                          options={select}
+                          label="Select Module"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="priority"
+                          options={priority}
+                          label="Priority"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
               </Row>
               <Row>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik
-                      label="Defect Type"
-                      name="defectType"
-                      items={types}
-                    />
-                  </div>
-                </Col>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik label="OS" name="os" items={os} />
-                  </div>
-                </Col>
-                <Col>
-                  <div className="m-2">
-                    <SelectTextFieldFormik
-                      label="Severity"
-                      name="severity"
-                      items={severity}
-                    />
-                  </div>
-                </Col>
+              <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="defectType"
+                          options={types}
+                          label="Defect Type"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="os"
+                          options={os}
+                          label="OS"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="status"
+                          options={status}
+                          label="Status"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
               </Row>
 
               <Row>
-                <Col>
-                  <div className="m-2">
-                    <TextFieldFormik
-                      label="Defect Description"
-                      name="defectDes"
-                    />
-                  </div>
-                </Col>
+              <Col >
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          label="Defect Description"
+                          name="defectDes"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
               </Row>
               <Row>
                 <Col>
@@ -219,21 +246,31 @@ class Create extends Component {
               </Row>
 
               <Row>
-                <Col>
-                  <div className="m-2">
-                    <TextFieldFormik label="Assign To" name="assignTo" />
-                  </div>
-                </Col>
+              <Col sm="6" md="4">
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          label="Assign To"
+                          name="projectKey"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                
               </Row>
-              <div className="d-flex flex-row-reverse ">
-                <Button className=" " variant="dark" type="submit">
-                  Create Defect
-                </Button>
-                <Button className="mr-3 " variant="dark" type="submit">
-                  Cancel
-                </Button>
-              </div>
-            </Paper>
+              <div className="w-25">
+                    <Button  
+                    loading={this.state.loading}
+                      type="primary"
+                      htmlType="submit">
+                      Create Defect
+                    </Button>
+                    <Link to={"/" + this.props.match.params.key + "/defect"}>
+                      <Button className="mr-2">Cancel</Button>
+                    </Link>
+                 
+                  </div>
+            </Card>
           </Form>
         )}
       </Formik>
