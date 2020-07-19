@@ -22,6 +22,8 @@ module.exports = function (socket) {
     }
   })
 
+  // const userAddedInProject = 
+  // socket.emit("")
 
   socket.on("disconnect", () => {
     console.log("disconnect user");

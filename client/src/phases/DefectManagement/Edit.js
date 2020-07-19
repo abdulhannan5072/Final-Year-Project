@@ -13,31 +13,40 @@ import {
   AntInput,
   AntSelect,
   QuillEditorFormik,
-  AntDatePicker,
 } from "../../shared/components";
-import {dateFormat, formatDate} from '../../shared/utils/dateTime'
-import { status } from "../../shared/constants/Types";
-import moment from 'moment'
+import { dateFormat, formatDate } from "../../shared/utils/dateTime";
+import moment from "moment";
+import {
+  defectTypes,
+  status,
+  osTypes,
+  priority,
+} from "../../shared/constants/Types";
 
 const validationSchema = Yup.object().shape({
-  taskName: Yup.string().min(3, "Too Short!").required("Required"),
-  status: Yup.string().required("Required"),
-  assignTo: Yup.string().required("Required"),
-  startDate: Yup.string().required("Required"),
-  dueDate: Yup.string().required("Required"),
+  selectBuild: Yup.string().required("Select build"),
+  selectModule: Yup.string().required("Select Module"),
+  defectType: Yup.string().required("Select this field"),
+  defect: Yup.string().min(5, "Too Short").required("This field is Required"),
+  priority: Yup.string().required("Select this field"),
+  assignTo: Yup.string().required(" This field is Required"),
+  status: Yup.string().required("Select this field"),
+  os: Yup.string().required("Select this field"),
 });
 
 class Edit extends Component {
   state = {
     loading: false,
     data: {
-        taskName: "",
-        status: "",
-        description: "",
-        attachmentUrl: "",
-        assignTo: "",
-        startDate: "",
-        dueDate: "",
+      defect: "",
+      description: "",
+      selectBuild: "",
+      selectModule: "",
+      defectType: "",
+      os: "",
+      assignTo: "",
+      priority: "",
+      status: "",
     },
 
     selectedFile: null,
@@ -51,12 +60,11 @@ class Edit extends Component {
     this.setState({ loading: true });
     const id = this.props.match.params.id;
     try {
-      const response = await axios.get("/api/task/" + id);
+      const response = await axios.get("/api/defect/" + id);
       this.setState({
         loading: false,
         data: await response.data,
       });
-      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +78,7 @@ class Edit extends Component {
       ...values,
     };
     const id = this.props.match.params.id;
-    axios.post("/api/task/" + id, data).then((res) => {
+    axios.post("/api/defect/" + id, data).then((res) => {
       this.setState = {
         loading: false,
       };
@@ -78,137 +86,158 @@ class Edit extends Component {
         this.props.enqueueSnackbar("Updated sucessfully", {
           variant: "info",
         });
-        this.props.history.push(
-          "/" + this.props.match.params.Pid + "/task"
-        );
+        this.props.history.push("/" + this.props.match.params.Pid + "/defect");
       }
     });
   };
 
   render() {
-
-    console.log()
     return (
       <Aux>
         <div className="page">
-            <Formik
-              enableReinitialize={true}
-              initialValues={{
-                taskName: this.state.data.taskName,
-                status: this.state.data.status,
-                description: this.state.data.description,
-                attachmentUrl: this.state.data.attachmentUrl,
-                assignTo: this.state.data.assignTo,
-                startDate: '',
-                dueDate: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={this.onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  <Card title="Create task">
-                    <div>
-                      <Row>
-                        <Col>
-                          <div className="mt-2">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Summary"
-                              name="taskName"
-                              onChange={props.handleChange}
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <div className="">
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              defect: this.state.data.defect,
+              description: this.state.data.description,
+              selectBuild: this.state.data.selectBuild,
+              selectModule: this.state.data.selectModule,
+              defectType: this.state.data.defectType,
+              os: this.state.data.os,
+              assignTo: this.state.data.assignTo,
+              priority: this.state.data.priority,
+              status: this.state.data.status,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={this.onSubmit}
+          >
+            {(props) => (
+              <Form>
+                <Card title="Create Defect">
+                  <Row>
+                    <Col>
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          type="input"
+                          label="Defect Summary"
+                          name="defect"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <div className="mt-2">
                         <QuillEditorFormik
-                          label="Description"
+                          label="Detail Description"
                           name="description"
                         />
                       </div>
-                      <Row className="mt-3">
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Assign To"
-                              name="assignTo"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              component={AntSelect}
-                              name="status"
-                              options={status}
-                              label="Status"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Attachment"
-                              name="attachmentUrl"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="4">
-                          <div className="mt-2">
-                            <Field
-                              component={AntDatePicker}
-                              defaultValue={formatDate(this.state.data.startDate)}
-                              format={dateFormat}
-                              label="Start Date"
-                              name="startDate"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                        <Col md="4">
-                          <div className="mt-2">
-                            <Field
-                              component={AntDatePicker}
-                              label="Due Date"
-                              defaultValue={formatDate(this.state.data.startDate)}
-                              format={dateFormat}
-                              name="dueDate"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-
-                      <div className="mt-5 flex-row-reverse d-flex">
-                        <Button
-                          loading={props.loading}
-                          type="primary"
-                          htmlType="submit"
-                        >
-                          Save
-                        </Button>
-                        <Link to={"/" + this.props.match.params.Pid + "/task"}>
-                          <Button className="mr-2">Cancel</Button>
-                        </Link>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="selectBuild"
+                          options={this.state.build}
+                          placeholder="Select build"
+                          label="Build"
+                          hasFeedback
+                        />
                       </div>
-                    </div>
-                  </Card>
-                </Form>
-              )}
-            </Formik>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="selectModule"
+                          placeholder="Select module"
+                          options={this.state.module}
+                          label="Module"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="priority"
+                          options={priority}
+                          label="Priority"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="defectType"
+                          options={defectTypes}
+                          label="Defect Type"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="os"
+                          options={osTypes}
+                          label="Operating system"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="status"
+                          options={status}
+                          label="Status"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm="6" md="4">
+                      <div className="mt-2">
+                        <Field
+                          component={AntInput}
+                          type="input"
+                          label="Assign To"
+                          name="assignTo"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <div className="mt-3 flex-row-reverse d-flex">
+                    <Button
+                      loading={props.loading}
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      Save
+                    </Button>
+                    <Link to={"/" + this.props.match.params.Pid + "/defect"}>
+                      <Button className="mr-2">Cancel</Button>
+                    </Link>
+                  </div>
+                </Card>
+              </Form>
+            )}
+          </Formik>
         </div>
       </Aux>
     );

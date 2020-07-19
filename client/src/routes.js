@@ -120,6 +120,7 @@ const editadaptive = React.lazy(() =>
 // const rooms = React.lazy(() => import('./chat/Rooms'));
 const chat = React.lazy(() => import("./chat/Chat"));
 const friends = React.lazy(() => import("./components/Friends/Friends"));
+const profile = React.lazy(() => import("./components/Profile/Profile") )
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -340,6 +341,13 @@ const routes = [
     exact: true,
     name: "Rooms",
     component: Auth(friends, true),
+  },
+
+  {
+    path: "/profile",
+    exact: true,
+    name: "Profile",
+    component: Auth(profile, true),
   },
 ];
 

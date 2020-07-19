@@ -13,7 +13,7 @@ const moduleschema = mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
-      ref: "Users",
+      ref: "User",
     },
     project: {
       type: mongoose.Schema.Types.ObjectId,

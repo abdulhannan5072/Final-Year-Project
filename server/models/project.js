@@ -18,6 +18,24 @@ const projectSchema = mongoose.Schema(
       ref: "User",
       require: true,
     },
+    team: [
+      {
+        username:{
+          type: String,
+          require: true
+        },
+        userId:{
+          type: mongoose.Schema.Types.ObjectId,
+          require: true,
+          ref: "User"
+        },
+        role:{
+          type: String,
+          require: true,
+          default: '-1'
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

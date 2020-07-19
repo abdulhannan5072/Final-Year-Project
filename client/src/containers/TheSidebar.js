@@ -22,6 +22,7 @@ import nav_home from "./nav-items/home";
 import nav_phases from "./nav-items/phases";
 import path from "../hoc/project/path";
 import { sidebarShow } from "../store/actions";
+import icon from './logo2.png'
 
 const TheSidebar = (props) => {
   const dispatch = useDispatch();
@@ -48,18 +49,15 @@ const TheSidebar = (props) => {
   }
 
   return (
-    <CSidebar show={show} onShowChange={(val) => dispatch(sidebarShow(val))}>
+    <CSidebar show={show}   onShowChange={(val) => dispatch(sidebarShow(val))}>
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
+          className="c-sidebar-brand-full "
+          title='Softech'
+          src={icon}
           height={35}
         />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
-        />
+        
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement

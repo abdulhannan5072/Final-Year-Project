@@ -6,6 +6,7 @@ const { Defect } = require("../models/defect");
 routes.post("/api/defect/create", (req, res) => {
   const defect = new Defect(req.body);
   defect.save(function (err, doc) {
+    console.log(err)
     if (err) return res.status(400).send(err);
     res.status(200).send(doc);
   });

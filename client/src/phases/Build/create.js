@@ -35,9 +35,6 @@ class Create extends Component {
     };
   }
 
-
-  
-
   onSubmit = (values, { setSubmitting }) => {
     this.setState({ loading: true });
     const data = {
@@ -45,7 +42,6 @@ class Create extends Component {
       createdBy: this.props.currentUser,
       project: this.props.match.params.Pid
     };
-    console.log(data)
     axios
       .post("/api/build/create" , data)
       .then((res) => {
@@ -70,7 +66,7 @@ class Create extends Component {
         <div className="page">
           <Card>
             <div className="mb-2">
-              <h3>Edit Build</h3>
+              <h3>Create Build</h3>
             </div>
             <Formik
               initialValues={{
@@ -106,7 +102,7 @@ class Create extends Component {
                       type="primary"
                       htmlType="submit"
                     >
-                      Update
+                      Save
                     </Button>
                     <Link to={"/" + this.props.match.params.Pid + "/build"}>
                       <Button className="mr-2">Cancel</Button>
@@ -123,7 +119,7 @@ class Create extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.username,
+    currentUser: state.auth.user.userId,
   };
 };
 export default connect(mapStateToProps)(withSnackbar(Create));

@@ -39,7 +39,7 @@ const defectSchema = mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     require: true,
-    ref: "Users",
+    ref: "User",
   },
   selectBuild: {
     type: String,

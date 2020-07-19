@@ -36,14 +36,13 @@ class Create extends Component {
     loading: false,
   };
 
-  onSubmit = (values, { setSubmitting }) => {
+  onSubmit = (values) => {
     this.setState = {
       loading: true,
     };
     const data = {
       ...values,
       createdBy: this.props.currentUser,
-      createdDate: getCurrentDate(),
       project: this.props.match.params.Pid,
     };
     axios.post("/api/module/create", data).then((res) => {
@@ -114,7 +113,7 @@ class Create extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.username,
+    currentUser: state.auth.user.userId,
   };
 };
 export default connect(mapStateToProps)(withSnackbar(Create));
