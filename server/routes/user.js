@@ -69,7 +69,8 @@ routes.get('/api/auth', auth, (req,res)=>{
         token:req.token,
         userId:req.user._id,
         email:req.user.email,
-        username:req.user.username
+        username:req.user.username,
+        name: req.user.name
     });
 })
 

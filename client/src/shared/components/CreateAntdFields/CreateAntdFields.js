@@ -20,8 +20,9 @@ const CreateAntField = (AntComponent) => ({
   const hasError = form.errors[field.name];
   const submittedError = hasError && submitted;
   const touchedError = hasError && touched;
-  // const onInputChange = ({ target: { value } }) =>
-  //   form.setFieldValue(field.name, value);
+  const onInputChange = ({ target: { value } }) =>
+    form.setFieldValue(field.name, value);
+  const onChange = value => form.setFieldValue(field.name, value);
   const onBlur = () => form.setFieldTouched(field.name, true);
   return (
     <div className="form-container ">
@@ -39,7 +40,7 @@ const CreateAntField = (AntComponent) => ({
           {...field}
           {...props}
           onBlur={onBlur}
-          onChange={field.onChange(field.name)}
+          onChange={type ? onInputChange : onChange}
         >
           {/* {selectOptions &&
             selectOptions.map((name) => <Option key={name}>{name}</Option>)} */}

@@ -42,7 +42,7 @@ const Login = (props) => {
 
  
   const onFinish = values => {
-    onAuth(values.email, values.password);
+    onAuth(values.email.toLowerCase(), values.password);
   };
 
   useEffect(( )=> {
@@ -79,7 +79,7 @@ const Login = (props) => {
         <CRow className="justify-content-center">
           <CCol md="8">
             <CCardGroup>
-              <CCard className="p-4">
+              <CCard className="p-4" >
                 <CCardBody>
                   <h1>Login</h1>
                   <p className="text-muted">Sign In to your account</p>
@@ -135,18 +135,17 @@ const Login = (props) => {
 
                 </CCardBody>
               </CCard>
-              <CCard className="  py-4 d-md-down-none " style={{ width: '60%' }}>
+              <CCard className="   d-md-down-none " style={{ width: '60%' }}>
                 <CCardBody className=" card-img">
-                  {/* <div className="card-img"> */}
-                    {/* <h2 className="text-white">Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
+                  <div className="">
+                    <h1 className="text-white text-align-center ">Sign up</h1>
+                    
                     <Link to="/register">
-                      <Button type="dashed" htmlType="submit" className="mt-4">
+                      <Button type="secondary" htmlType="submit" className="mt-4">
                         Register Now!
                       </Button>
-                    </Link> */}
-                  {/* </div> */}
+                    </Link>
+                  </div>
                 </CCardBody>
               </CCard>
             </CCardGroup>

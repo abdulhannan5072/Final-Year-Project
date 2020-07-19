@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema(
       trim: true,
       unique: 1,
     },
+    name: {
+      type: String,
+      require: true,
+      trim: true,
+    },
     password: {
       type: String,
       require: true,
@@ -33,25 +38,27 @@ const userSchema = mongoose.Schema(
     sendRequests: [
       {
         username: { type: String, default: "" },
+        name: {type: String}
       },
     ],
     requests: [
       {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         username: { type: String, default: "" },
+        name: {type: String}
       },
     ],
     friendsList: [
       {
         friendId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         friendUsername: { type: String, default: "" },
+        name: {type: String}
       },
     ],
     totalRequest: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
-
 
 userSchema.pre("save", function (next) {
   var user = this;
@@ -112,62 +119,74 @@ userSchema.methods.deleteToken = function (token, callback) {
 
 // find user
 
-userSchema.statics.findUser = function(email, callback){
+userSchema.statics.findUser = function (email, callback) {
   var user = this;
 
-  user.findOne({email: email}, (err, doc)=>{
-    if(err) return callback(err);
-    if(!doc) return callback(null, false)
+  user.findOne({ email: email }, (err, doc) => {
+    if (err) return callback(err);
+    if (!doc) return callback(null, false);
     callback(null, doc);
-  })
-}
+  });
+};
 
 // find in friends
 
 userSchema.statics.findInFriendList = function (data, callback) {
   var user = this;
-
-  user.findOne({email: data.requestSender}, (err, doc) => {
-    if(err) return callback(err);
-    const findFriend = doc.friendsList.find(obj => obj.friendUsername === data.requestReciver)
-    if(findFriend){
-      return callback(null, true)
+  user.findOne({ email: data.requestSenderEmail }, (err, doc) => {
+    if (err) return callback(err);
+    // console.log(doc);
+    if (doc.friendsList != null) {
+      const findFriend = doc.friendsList.find(
+        (obj) => obj.friendUsername === data.requestReciver
+      );
+      if (findFriend) {
+        return callback(null, true);
+      }
     }
+
     callback(null, false);
-  })
-  
+  });
 };
 
 // find in Pending requests
 
 userSchema.statics.findInPendingRequests = function (data, callback) {
   var user = this;
-
-  user.findOne({email: data.requestSender}, (err, doc) => {
-    if(err) return callback(err);
-    const findUser = doc.requests.find(obj => obj.username === data.requestReciver)
-    if(findUser){
-      return callback(null, true)
+  user.findOne({ email: data.requestSenderEmail }, (err, doc) => {
+    if (err) return callback(err);
+    if (doc.requests != null) {
+      const findUser = doc.requests.find(
+        (obj) => obj.username === data.requestReciver
+      );
+      if (findUser) {
+        return callback(null, true);
+      }
     }
+
     callback(null, false);
-  })
+  });
 };
 
 // find in sendRequest
 
 userSchema.statics.findInSendRequest = function (data, callback) {
   var user = this;
-
-  user.findOne({email: data.requestSender}, (err, doc) => {
-    if(err) return callback(err);
-    const findUser = doc.sendRequests.find(obj => obj.username === data.requestReciver)
-    if(findUser){
-      return callback(null, true)
+  user.findOne({ email: data.requestSenderEmail }, (err, doc) => {
+    if (err) return callback(err);
+    if (doc.sendRequests != null) {
+      const findUser = doc.sendRequests.find(
+        (obj) => obj.username === data.requestReciver
+      );
+      if (findUser) {
+        return callback(null, true);
+      }
     }
+
     callback(null, false);
-  })
+  });
 };
 
 const User = mongoose.model("User", userSchema);
 
-module.exports =  {User} ;
+module.exports = { User };

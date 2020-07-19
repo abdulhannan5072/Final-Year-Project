@@ -11,6 +11,11 @@ export default [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "Friends",
+    to: "/friends",
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "Messages",
     to: "/chat",
   },

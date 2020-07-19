@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AntInput } from "../../shared/components";
-import {  Field } from "formik";
+import { Field } from "formik";
 import { Col, Row } from "react-bootstrap";
 import { Button, Card } from "antd";
 import { withSnackbar } from "notistack";
@@ -18,10 +18,12 @@ import {
 } from "../../shared/components";
 
 const validationSchema = Yup.object().shape({
-  build: Yup.string().min(2, "Too Short!").required("Required").max(10,"Too Long!"),
+  build: Yup.string()
+    .min(2, "Too Short!")
+    .required("Required")
 });
 
-class Create extends Component {
+class EditBuild extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,11 +97,12 @@ class Create extends Component {
             >
               {(props) => (
                 <Form>
-                   <Row>
+                  <Row>
                     <Col sm="4" md="4">
                       <div className="mt-2">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Build"
                           name="build"
                           hasFeedback
@@ -111,11 +114,6 @@ class Create extends Component {
                   <div className="mt-2">
                     <QuillEditorFormik label="Description" name="description" />
 
-                    {/* <QuillEditor
-                      ref={(el) => { this.reactQuillRef = el }}
-                      value={this.state.desc}
-                      onChange={this.handleChange}
-                    />*/}
                   </div>
                   <div className="mt-5 flex-row-reverse d-flex">
                     <Button
@@ -129,7 +127,6 @@ class Create extends Component {
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>
-                  {/* <div dangerouslySetInnerHTML={{__html: this.state.desc}}></div> */}
                 </Form>
               )}
             </Formik>
@@ -144,4 +141,4 @@ const mapStateToProps = (state) => {
     currentUser: state.auth.user.username,
   };
 };
-export default connect(mapStateToProps)(withSnackbar(Create));
+export default connect(mapStateToProps)(withSnackbar(EditBuild));

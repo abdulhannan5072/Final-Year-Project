@@ -1,62 +1,68 @@
-const routes = require('express').Router();
+const routes = require("express").Router();
 
-
-const{Defect}=require('../models/defect');
-
+const { Defect } = require("../models/defect");
 
 //Create
-routes.post('/api/defect/create',(req,res)=>{
-    const defect =new Defect(req.body)
-    defect.save(function(err,doc){
-    if(err) return res.status(400).send(err);
+routes.post("/api/defect/create", (req, res) => {
+  const defect = new Defect(req.body);
+  defect.save(function (err, doc) {
+    if (err) return res.status(400).send(err);
     res.status(200).send(doc);
-}
-)
-})
-routes.get('/api/getdefect', (req,res)=>{
-    Defect.find({}, (err, data)=>{
-        if(err) return res.status(400).send(err);
-        res.status(200).send(data);
-    })
-})
+  });
+});
+
+// get 
+routes.get("/api/getDefect/:id", (req, res) => {
+    Defect.find({ project: req.params.id }, (err, data) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).send(data);
+    });
+  });
+
+
+
 //Delete
-routes.post('/api/defect/delete', function(req,res)
-{
-    let id =req.body.id;
-    Defect.findByIdAndRemove(id, (err,defect)=>{
-        if(err) return res.status(400).send(err);
-        if(!defect) return res.json({
-         message:'Defect  removed'
-         
-        }) 
-     })
 
-})
+routes.post("/api/defect/delete", (req, res) => {
+    let id = req.body._id;
+    Defect.findByIdAndDelete(id, (err, doc) => {
+      if (err) return res.status(400).send(err);
+      if (!doc)
+        return res.json({
+          message: "Not Found",
+        });
+      return res.status(201).json({
+        message: "Deleted Succesfully",
+      });
+    });
+  });
+
 //Find
-routes.post('/api/defect/find',function(req,res){
-    Defect.findOne({'defectname':req.body.defectname},(err,defect)=>{
-        if(err) return res.status(400).send(err);
-        if(!defect) return res.json(
-            {
-                message:'Defect not found '
-            }
-        )
-        else if (defect) res.json({
-            message:'Defect found'
 
-        }
-        )
-    })
-})
+routes.get("/api/defect/:id", (req, res) => {
+    let id = req.params.id;
+    Defect.findById(id, (err, doc) => {
+      if (err) return res.status(400).send(err);
+      if (!doc)
+        return res.json({
+          message: "Not found ",
+        });
+      return res.status(200).send(doc);
+    });
+  });
+
 //Update
-routes.post('/api/defect/update',(req,res)=>
-{
-    Defect.findByIdAndUpdate(req.body.id, req.body, {new:true}, 
-        (err,doc)=>{
-        if(err) return res.status(400).send(err);
-            res.status(200).send(doc);
-        })
-})
-    
+
+routes.post("/api/defect/:id", function (req, res) {
+    Defect.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true, useFindAndModify: false },
+      (err, doc) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).send(doc);
+      }
+    );
+  });
 
 module.exports = routes;

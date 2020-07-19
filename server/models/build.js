@@ -11,16 +11,14 @@ const buildschema = mongoose.Schema(
       type: String,
       require: true,
     },
-    createdDate: {
-      type: String,
-      require: true,
-    },
     createdBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       require: true,
+      ref: "Users",
     },
     project: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
       require: true,
     },
   },

@@ -21,12 +21,14 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Required").min(2,"Too Short ").max(6,"Too Long "),
+  name: Yup.string()
+    .required("Required")
+    .min(2, "Too Short ")
+    .max(6, "Too Long "),
   functionalityType: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
   requirements: Yup.string().required("Required"),
 });
-
 
 class Create extends Component {
   state = {
@@ -51,7 +53,7 @@ class Create extends Component {
         loading: false,
       };
       if (res.status === 200) {
-        this.props.enqueueSnackbar("Fault created", {
+        this.props.enqueueSnackbar("Created Sucessfully", {
           variant: "success",
         });
         this.props.history.push(
@@ -80,6 +82,7 @@ class Create extends Component {
                       <div>
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Name"
                           name="name"
                           onChange={props.handleChange}

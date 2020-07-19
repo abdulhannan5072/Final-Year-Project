@@ -25,7 +25,7 @@ const authSuccess = (state, action) => {
         loading: false,
         isAuth: action.payload.isAuth,
         token: action.payload.token,
-        userId: action.payload.userId
+        userId: action.payload.userId,
     });
 }
 const getCurrentUser = (state, action) => {
@@ -33,6 +33,7 @@ const getCurrentUser = (state, action) => {
         userId: action.payload.userId,
         email: action.payload.email,
         username: action.payload.username,
+        name: action.payload.name
     }});
 }
 const authFail = (state, action) => {

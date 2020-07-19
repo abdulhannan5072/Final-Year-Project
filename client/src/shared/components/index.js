@@ -1,4 +1,4 @@
-export { default as Model } from "./TransitionModel";
+export { default as Modal } from "./Modals";
 export { default as FlatCard } from "./FlatCard";
 export { default as Input } from "./BootstrapInput";
 export { default as Select } from "./Select";
@@ -33,3 +33,9 @@ export {
   AntDatePicker,
   AntTimePicker,
 } from "./CreateAntdFields/CreateAntdFields";
+
+export { default as FriendsCard } from "./Cards/FriendsCard";
+
+export { UserCard } from "./Cards/UserCard";
+
+export {default as ModalDialog} from './Modals/ModalDialog'

@@ -17,12 +17,12 @@ export default [
     {
         _tag: 'CSidebarNavItem',
         name: 'Task Management',
-        to: '/Task',
+        to: '/task',
     }, 
     {
         _tag: 'CSidebarNavItem',
         name: 'Defect Management',
-        to: '/Defect/',
+        to: '/defect',
     },
     {
         _tag: 'CSidebarNavItem',

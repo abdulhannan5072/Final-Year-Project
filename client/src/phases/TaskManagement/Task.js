@@ -1,124 +1,168 @@
-import React, {Component} from 'react';
-import Aux from "../../hoc/_Aux/index";
-import {Row, Col, Button, 
-        } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Container, Row} from "react-bootstrap";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { Table } from "../../shared/components";
 
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {IconButton} from '@material-ui/core';
-import {Table } from '../../shared/components';
-import {Link} from 'react-router-dom';
-import axios from 'axios';
-const data = [ {id:1, name:'1.0', description:'------', created:'March 01, 2020', by:'abdulhannan5072'},
-                
-];
+import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
+import { Button, Space, Popconfirm, Tooltip, Alert, Card } from "antd";
 
-const columns = [
-    {
-        title: 'Task Name',
-        field: 'taskName',
-      
-    },
-    {
-        title: 'Status',
-        field: 'status',
-      
-    },
-    {
-        title: 'Description',
-        field: 'description',
-      
-    },
-  
-    {
-        title: 'URl',
-        field: 'url',
-    },
-    {
-        title: 'Link text',
-        field: 'linkText',
-    },
-    {
-        title: 'Assign To',
-        field: 'assignTo',
-    },
-    {
-        title: 'Reporter',
-        field: 'reporter',
-    
-    },
-    {
-        title: 'Due Date',
-        field: 'dueDate',
-    },
-    {
-        title: 'created date',
-        field: 'createddate',
-    },
-    {
-        title: 'Created by',
-        field: 'createdby',
-    },
- 
-  ];
-    class Task extends Component{
-        state={
-            data:[]
-        }
+class Task extends Component {
+  state = {
+    data: [],
+    loading: false,
+  };
 
-        componentDidMount(){
-            this.getData();
-        }
+  componentDidMount() {
+    this.fetch();
+  }
 
-        getData = () => {
-            axios.get('/api/gettask')
-                .then((res)=>{
-                    console.log(res);
-                    this.setState({data: res.data});
-                    console.log(this.state.data);
-
-                })
-                .catch((err)=>{
-                    console.log(err);
-                })
-            }
-        
-        render(){
-   
-         
-           
-            
-              const More = ({row}) => (
-                  
-                    <IconButton aria-label='morehoriz' >
-                        <MoreHorizIcon/>
-                    </IconButton>
-                  
-              );
-            
-
-            return(
-                <Aux>
-                    <Row>
-                        <Col>
-                            <div className="row d-flex align-items-center mb-3">
-                                <div className="col-9">
-                                <h3>Task Management</h3>
-                                </div>
-                                <div className="col-3 text-right">
-                                    <Button variant="dark" size="sm" className="float-right">
-                                    <Link to='/project/createTask' className='text-light'>Create </Link>
-                                    </Button>
-                                </div>
-                            </div>   
-                            <Table title={null} columns={columns} data={this.state.data} />
-
-                        </Col>
-                    </Row>
-                    
-                </Aux>
-            )
-        }    
+  async fetch() {
+    this.setState({ loading: true });
+    const Pid = this.props.match.params.Pid;
+    try {
+      const response = await axios.get("/api/getTask/" + Pid);
+      this.setState({
+        loading: false,
+        data: await response.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
+  }
 
+  onProjectDeleteHandle = (record) => {
+    const id = {
+      _id: record._id,
+    };
+    axios
+      .post("/api/task/delete", id)
+      .then((res) => {
+        console.log(res);
+        if (res.request.status === 201) {
+          this.fetch();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  onProjectEditHandle = (record) => {
+    const Pid = this.props.match.params.Pid;
+    this.props.history.push(
+      "/" + Pid + "/task/" + record._id
+    );
+  };
+  render() {
+    const columns = [
+      {
+        title: "Task summary",
+        dataIndex: "taskName",
+        key: "taskName",
+        sorter: "true",
+        width: "20%",
+        colSearch: "true",
+        ellipsis: {
+          showTitle: false,
+        },
+        render: (address) => (
+          <Tooltip placement="topLeft" title={address}>
+            {address}
+          </Tooltip>
+        ),
+      },
+      
+      {
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+        width: "20%",
+        ellipsis: {
+          showTitle: false,
+        },
+        render: (address) => (
+          <Tooltip placement="topLeft" title={address.replace(/<[^>]*>/g, "")}>
+            {address.replace(/<[^>]*>/g, "")}
+          </Tooltip>
+        ),
+      },
+      {
+        title: "Assign to",
+        dataIndex: "assignTo",
+        key: "assignTo",
+        width: "15%",
+        sorter: "true",
+        colSearch: "true",
+      },
+      {
+        title: "StartDate",
+        dataIndex: "startDate",
+        key: "startDate",
+        width: "15%",
+        sorter: "true",
+        colSearch: "true",
+      },
+      {
+        title: "Due Date",
+        dataIndex: "dueDate",
+        key: "dueDate",
+        width: "15%",
+        sorter: "true",
+        colSearch: "true",
+      },
+      {
+        align: "right",
+        render: (record) => (
+          <Space size="small">
+            <Button
+              icon={<EditTwoTone />}
+              type="link"
+              onClick={() => this.onProjectEditHandle(record)}
+            />
+            <Popconfirm
+              title="Are you sure？"
+              okText="Yes"
+              onConfirm={() => this.onProjectDeleteHandle(record)}
+              cancelText="No"
+            >
+              <Button icon={<DeleteTwoTone />} type="link" />
+            </Popconfirm>
+          </Space>
+        ),
+      },
+    ];
+
+    const { data, loading } = this.state;
+
+    return (
+      <Container>
+        <Row>
+          <Card
+            title="Task"
+            bordered={false}
+            extra={
+              <Button type="primary" className="float-right">
+                <Link
+                  to={"/" + this.props.match.params.Pid + "/task/create"}
+                  className="text-light"
+                >
+                  Create new tasks
+                </Link>
+              </Button>
+            }
+          >
+            <Table
+              columns={columns}
+              rowKey={(record) => record._id}
+              data={data}
+              size="small"
+              loading={loading}
+            />
+          </Card>
+        </Row>
+      </Container>
+    );
+  }
+}
 export default Task;

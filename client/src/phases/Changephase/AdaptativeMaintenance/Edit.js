@@ -97,6 +97,7 @@ class Edit extends Component {
                       <div>
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Affected"
                           name="affected"
                           placeholder="Enter what is affected"
@@ -109,6 +110,7 @@ class Edit extends Component {
                       <div className="">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Affected By"
                           name="affectedBy"
                           placeholder="Enter cause of affect"

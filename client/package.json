@@ -40,6 +40,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.10.0",
+    "@mui-treasury/components": "^1.5.2",
     "antd": "^4.3.5",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",

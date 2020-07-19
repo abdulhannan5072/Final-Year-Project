@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { fetchBuilds } from "../../../store/actions";
 import { withSnackbar } from "notistack";
 import Aux from "../../../hoc/_Aux";
 import { Form, Field } from "formik";
@@ -12,7 +11,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { QuillEditorFormik } from "../../../shared/components";
-import {faultTypes} from '../../../shared/constants/Types'
+import { faultTypes } from "../../../shared/constants/Types";
 
 const initialValues = {
   selectBuild: "",
@@ -26,9 +25,11 @@ const validationSchema = Yup.object().shape({
   selectBuild: Yup.string().required("Required"),
   selectModule: Yup.string().required("Required"),
   faultType: Yup.string().required("Required"),
-  fault: Yup.string().required("Required").min(2,"Too Short ").max(6,"Too Long "),
+  fault: Yup.string()
+    .required("Required")
+    .min(2, "Too Short ")
+    .max(6, "Too Long "),
 });
-
 
 class Create extends Component {
   state = {
@@ -40,9 +41,6 @@ class Create extends Component {
   };
 
   componentDidMount() {
-    // this.props.getBuilds(this.props.match.params.Pid);
-    // this.setState({ build: this.props.build });
-    // console.log(this.props.build)
     this.getBuild();
     this.getModule();
   }
@@ -118,7 +116,7 @@ class Create extends Component {
               onSubmit={this.onSubmit}
             >
               {(props) => (
-                <Form >
+                <Form>
                   <Row className="mt-4">
                     <Col sm="6" md="4">
                       <div>
@@ -160,6 +158,7 @@ class Create extends Component {
                       <div className="mt-2">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Fault"
                           name="fault"
                           onChange={props.handleChange}
@@ -228,15 +227,7 @@ class Create extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.auth.user.userId,
-    build: state.project,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getBuilds: (Pid) => dispatch(fetchBuilds(Pid)),
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withSnackbar(Create));
+
+export default connect(mapStateToProps)(withSnackbar(Create));

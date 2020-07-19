@@ -50,7 +50,7 @@ export const auth = (email, password) => {
             authSuccess(
               res.data.userData._id,
               res.data.userData.token,
-              res.data.userData.username
+              res.data.userData.username,
             )
           );
         } else {

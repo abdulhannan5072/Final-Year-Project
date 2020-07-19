@@ -1,9 +1,10 @@
 import moment from 'moment';
 
 export const getCurrentDate = () => moment().format("DD-MM-YYYY") 
-
-// export const formatDate = (date, format = 'MMMM D, YYYY') =>
-//   date ? moment(date).format(format) : date;
+export const dateFormat = "DD-MM-YYYY";
+export const timeFormat = "h:mm A";
+export const formatDate = (date, format = dateFormat) =>
+  date ? moment(date).format(format) : date;
 
 // export const formatDateTime = (date, format = 'MMMM D, YYYY, h:mm A') =>
 //   date ? moment(date).format(format) : date;

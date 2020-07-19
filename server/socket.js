@@ -7,8 +7,9 @@ module.exports = {
   },
   getIo: () => {
     if(!io){
-      throw new Error('Socket.io not ini')
+      throw new Error('Socket.io not init')
     }
+    console.log(io)
     return io;
   }
 }

@@ -46,7 +46,7 @@ const Register = (props) => {
   
   const onFinish = async (values) => {
     const data = {
-      email: values.email,
+      email: values.email.toLowerCase(),
       username: values.username,
       password: values.password,
     }
@@ -87,7 +87,17 @@ const Register = (props) => {
                     onFinish={onFinish}
                     validateMessages={validateMessages}
                   >
-                    
+                    <Form.Item
+                      name="name"
+                      rules={[{ 
+                        required: true,
+                      }]}
+                    >
+                      <Input.Password
+                        placeholder="Your name"
+                        prefix={<UserOutlined className="site-form-item-icon" />}
+                      />
+                    </Form.Item>
                     <Form.Item
                       name="username"
                       rules={[{
@@ -135,19 +145,7 @@ const Register = (props) => {
                         iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                       />
                     </Form.Item>
-                    <Form.Item
-                      name="repeatpassword"
-                      rules={[{ 
-                        required: true,
-                        min: 8
-                      }]}
-                    >
-                      <Input.Password
-                        placeholder="Repeat password"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                      />
-                    </Form.Item>
+                    
                     <Form.Item  >
                     <Button type="primary" htmlType="submit" className="button-float-r">
                       Register

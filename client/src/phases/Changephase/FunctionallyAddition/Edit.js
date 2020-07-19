@@ -94,69 +94,70 @@ class Edit extends Component {
             >
               {(props) => (
                 <Form>
-                <Row className="mt-2">
-                  <Col sm="6" md="8">
-                    <div>
-                      <Field
-                        component={AntInput}
-                        label="Name"
-                        name="name"
-                        onChange={props.handleChange}
-                        hasFeedback
-                      />
-                    </div>
-                  </Col>
-                  <Col sm="6" md="4">
-                    <div className="">
-                      <Field
-                        component={AntSelect}
-                        name="functionalityType"
-                        options={functionalityType}
-                        label="Functionality Type"
-                        hasFeedback
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="mt-3">
-                      <QuillEditorFormik
-                        label="Requirements"
-                        name="requirements"
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div className="mt-4">
-                      <QuillEditorFormik
-                        label="Detail Description"
-                        name="description"
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <div className="mt-5 flex-row-reverse d-flex">
-                  <Button
-                    loading={props.loading}
-                    type="primary"
-                    htmlType="submit"
-                  >
-                    Save
-                  </Button>
-                  <Link
-                    to={
-                      "/" +
-                      this.props.match.params.Pid +
-                      "/changePhase/functionatilityAddition"
-                    }
-                  >
-                    <Button className="mr-2">Cancel</Button>
-                  </Link>
-                </div>
-              </Form>
+                  <Row className="mt-2">
+                    <Col sm="6" md="8">
+                      <div>
+                        <Field
+                          component={AntInput}
+                          type="input"
+                          label="Name"
+                          name="name"
+                          onChange={props.handleChange}
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                    <Col sm="6" md="4">
+                      <div className="">
+                        <Field
+                          component={AntSelect}
+                          name="functionalityType"
+                          options={functionalityType}
+                          label="Functionality Type"
+                          hasFeedback
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <div className="mt-3">
+                        <QuillEditorFormik
+                          label="Requirements"
+                          name="requirements"
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <div className="mt-4">
+                        <QuillEditorFormik
+                          label="Detail Description"
+                          name="description"
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                  <div className="mt-5 flex-row-reverse d-flex">
+                    <Button
+                      loading={props.loading}
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      Save
+                    </Button>
+                    <Link
+                      to={
+                        "/" +
+                        this.props.match.params.Pid +
+                        "/changePhase/functionatilityAddition"
+                      }
+                    >
+                      <Button className="mr-2">Cancel</Button>
+                    </Link>
+                  </div>
+                </Form>
               )}
             </Formik>
           </Card>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AntInput } from "../../shared/components";
-import {  Field } from "formik";
+import { Field } from "formik";
 import { Col, Row } from "react-bootstrap";
 import { Button, Card } from "antd";
 import { withSnackbar } from "notistack";
@@ -19,7 +19,10 @@ import {
 } from "../../shared/components";
 
 const validationSchema = Yup.object().shape({
-  module: Yup.string().min(2, "Too Short!").required("Required").max(10,"Too Long!"),
+  module: Yup.string()
+    .min(2, "Too Short!")
+    .required("Required")
+    .max(10, "Too Long!"),
 });
 
 class Create extends Component {
@@ -47,7 +50,7 @@ class Create extends Component {
         loading: false,
         data: await response.data,
       });
-      console.log(this.state)
+      console.log(this.state);
     } catch (err) {
       console.log(err);
     }
@@ -104,6 +107,7 @@ class Create extends Component {
                       <div className="mt-2">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Module"
                           name="module"
                           hasFeedback

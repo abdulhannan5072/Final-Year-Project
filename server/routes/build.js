@@ -5,9 +5,13 @@ const { Build } = require("../models/build");
 //Create
 routes.post("/api/build/create", (req, res) => {
   const build = new Build(req.body);
+  console.log(req.body)
   build.save(function (err, doc) {
     if (err) return res.status(400).send(err);
-    res.status(200).send(doc);
+    res.status(200).json({
+      message: "Created sucessfully",
+      data: doc
+    });
   });
 });
 

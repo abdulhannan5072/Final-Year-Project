@@ -16,7 +16,7 @@ import Thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./store/reducers";
 // import rootSaga from './store/sagas';
-
+import './index.css';
 
 
 

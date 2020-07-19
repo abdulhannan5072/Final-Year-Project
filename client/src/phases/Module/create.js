@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import { AntInput } from "../../shared/components";
-import {  Field } from "formik";
+import { Field } from "formik";
 import { Col, Row } from "react-bootstrap";
 import { Button, Card } from "antd";
 
@@ -25,19 +25,21 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  module: Yup.string().min(2, "Too Short!").required("Required").max(10,"Too Long!"),
+  module: Yup.string()
+    .min(2, "Too Short!")
+    .required("Required")
+    .max(10, "Too Long!"),
 });
 
 class Create extends Component {
-
-  state= {
-    loading: false
-  }
+  state = {
+    loading: false,
+  };
 
   onSubmit = (values, { setSubmitting }) => {
-    this.setState= {
-      loading: true
-    }
+    this.setState = {
+      loading: true,
+    };
     const data = {
       ...values,
       createdBy: this.props.currentUser,
@@ -46,9 +48,9 @@ class Create extends Component {
     };
     axios.post("/api/module/create", data).then((res) => {
       console.log(res);
-      this.setState= {
-        loading: false
-      }
+      this.setState = {
+        loading: false,
+      };
       if (res.status === 200) {
         this.props.enqueueSnackbar("Module created", {
           variant: "success",
@@ -73,11 +75,12 @@ class Create extends Component {
             >
               {(props) => (
                 <Form>
-                    <Row>
+                  <Row>
                     <Col sm="4" md="4">
                       <div className="mt-2">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Module"
                           name="module"
                           hasFeedback
@@ -96,7 +99,7 @@ class Create extends Component {
                     >
                       Create module
                     </Button>
-                    <Link to={"/" + this.props.match.params.key + "/module"}>
+                    <Link to={"/" + this.props.match.params.Pid + "/module"}>
                       <Button className="mr-2">Cancel</Button>
                     </Link>
                   </div>

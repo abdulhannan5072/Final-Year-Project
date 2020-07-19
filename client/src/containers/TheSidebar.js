@@ -21,8 +21,7 @@ import navigation from "./_nav";
 import nav_home from "./nav-items/home";
 import nav_phases from "./nav-items/phases";
 import path from "../hoc/project/path";
-import {sidebarShow} from '../store/actions'
-
+import { sidebarShow } from "../store/actions";
 
 const TheSidebar = (props) => {
   const dispatch = useDispatch();
@@ -40,6 +39,8 @@ const TheSidebar = (props) => {
     case "build":
     case "module":
     case "changePhase":
+    case "task":
+    case "defect":
       nav = path(nav_phases, projectId);
       break;
     default:
@@ -47,10 +48,7 @@ const TheSidebar = (props) => {
   }
 
   return (
-    <CSidebar
-      show={show}
-      onShowChange={(val) => dispatch(sidebarShow(val))}
-    >
+    <CSidebar show={show} onShowChange={(val) => dispatch(sidebarShow(val))}>
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"

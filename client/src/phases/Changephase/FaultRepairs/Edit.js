@@ -180,6 +180,7 @@ class Edit extends Component {
                       <div className="mt-2">
                         <Field
                           component={AntInput}
+                          type="input"
                           label="Fault"
                           name="fault"
                           onChange={props.handleChange}

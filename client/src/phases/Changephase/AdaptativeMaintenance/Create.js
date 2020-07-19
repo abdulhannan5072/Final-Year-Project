@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { QuillEditorFormik } from "../../../shared/components";
-import {affectedReqType} from '../../../shared/constants/Types'
+import { affectedReqType } from "../../../shared/constants/Types";
 
 const initialValues = {
   affected: "",
@@ -22,12 +22,14 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  affected: Yup.string().required("Required").min(2,"Too Short ").max(6,"Too Long "),
+  affected: Yup.string()
+    .required("Required")
+    .min(2, "Too Short ")
+    .max(6, "Too Long "),
   type: Yup.string().required("Required"),
   affectedBy: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
 });
-
 
 class Create extends Component {
   state = {
@@ -37,7 +39,6 @@ class Create extends Component {
     selectedFile: null,
     selectedFileList: [],
   };
-
 
   onSubmit = (values, { setSubmitting }) => {
     this.setState = {
@@ -74,27 +75,29 @@ class Create extends Component {
               onSubmit={this.onSubmit}
             >
               {(props) => (
-                <Form >
+                <Form>
                   <Row className="mt-4">
-                    <Col sm="6" >
+                    <Col sm="6">
                       <div>
-                      <Field
+                        <Field
                           component={AntInput}
+                          type="input"
                           label="Affected"
                           name="affected"
-                          placeholder='Enter what is affected'
+                          placeholder="Enter what is affected"
                           onChange={props.handleChange}
                           hasFeedback
                         />
                       </div>
                     </Col>
-                    <Col sm="6" >
+                    <Col sm="6">
                       <div className="">
-                      <Field
+                        <Field
                           component={AntInput}
+                          type="input"
                           label="Affected By"
                           name="affectedBy"
-                          placeholder='Enter cause of affect'
+                          placeholder="Enter cause of affect"
                           onChange={props.handleChange}
                           hasFeedback
                         />
@@ -102,9 +105,9 @@ class Create extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col sm='4'>
+                    <Col sm="4">
                       <div className="mt-2">
-                      <Field
+                        <Field
                           component={AntSelect}
                           name="type"
                           options={affectedReqType}
@@ -120,7 +123,7 @@ class Create extends Component {
                         <QuillEditorFormik
                           label="Detail Description"
                           name="description"
-                          placeholder='Provide detailed requriements'
+                          placeholder="Provide detailed requriements"
                         />
                       </div>
                     </Col>
