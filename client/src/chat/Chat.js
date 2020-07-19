@@ -6,7 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import io from "socket.io-client";
 import Message from "./Message";
 import SendForm from "./SendForm";
-
+import {UserCard} from "../shared/components";
 import { connect } from "react-redux";
 
 let socket;
@@ -80,82 +80,9 @@ class Chat extends React.Component {
               </div>
               <div className=" fixed-size-chat-div p-2">
                 <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
+                  <UserCard  />
                 </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
-                <Link to="#">
-                  <Card style={{ marginTop: 16 }} hoverable>
-                    <Meta
-                      avatar={
-                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      }
-                      title="Abdul Hannan"
-                      description="Last online 3h ago"
-                    />
-                  </Card>
-                </Link>
+                
               </div>
             </Col>
             <Col md="8">
