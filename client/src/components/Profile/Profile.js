@@ -3,15 +3,19 @@ import Aux from "../../hoc/_Aux";
 import { Image, Row, Col, Button, Card } from "react-bootstrap";
 import dp from "./assets/dp.jpg";
 import "./style.css";
-import WorkOutlineIcon from "@material-ui/icons/WorkOutline";
-import BusinessIcon from "@material-ui/icons/Business";
-import DeviceHubIcon from "@material-ui/icons/DeviceHub";
-import MailIcon from "@material-ui/icons/Mail";
-import SimpleCard from "../Cards/SimpleCard";
 import { Paper } from "@material-ui/core";
 import Avatar1 from "./assets/avatar-1.png";
 import Avatar2 from "./assets/avatar-2.png";
 import Cover from "./assets/cover.jpg";
+import { AntInput } from "../../shared/components";
+import { Field, Formik, Form } from "formik";
+import {
+  MailOutlined,
+  PhoneOutlined,
+  UserOutlined,
+  ShoppingOutlined,
+} from "@ant-design/icons";
+import { Empty } from "antd";
 
 class Profile extends Component {
   render() {
@@ -25,124 +29,128 @@ class Profile extends Component {
             <Image src={Cover} fluid className="img" />
           </Col>
         </Row>
-        <Row className=" ml-5 mr-5">
-          <Col className=" pl-3 pr-3 " md="4">
-            <div>
-              <Image
-                className="imgDp "
-                src={dp}
-                roundedCircle
-                width="171"
-                height="180"
-              />
-              <div>
-                <h4 className="text-left  mt-4 font-weight-bold">
-                  ABDUL HANNAN
-                </h4>
-              </div>
-
-              <div className="mb-5">
-                <Button className="text-center w-100  mt-4" variant="light">
-                  Manage your account
-                </Button>
-              </div>
-
-              <Card>
-                <Card.Header>About</Card.Header>
-                <Card.Body>
-                  <div className="d-inline-flex align-items-center">
-                    <WorkOutlineIcon className="mr-3" />
-                    
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            email: "abdulhannan5072@gmail.com",
+            phoneNo: "+92-333-1234567",
+            company: "UOL",
+            about: "Developer",
+          }}
+        >
+          {(props) => (
+            <Row className=" ml-5 ">
+              <Col className="  " md="4">
+                <div>
+                  <div className="d-flex justify-content-center">
+                    <Image
+                      className="imgDp "
+                      src={dp}
+                      roundedCircle
+                      width="171"
+                      height="180"
+                    />
                   </div>
-                  <div className="d-inline-flex align-items-center mt-4">
-                    <DeviceHubIcon className="mr-3" />
-                    
+                  <div className="d-flex justify-content-center">
+                    <h4 className="  mt-4 font-weight-bold">ABDUL HANNAN</h4>
                   </div>
-                  <div className="d-inline-flex align-items-center mt-4">
-                    <BusinessIcon className="mr-3" />
-                    
-                  </div>
-                  <div className="mt-4">
-                    <Card.Subtitle>Contact</Card.Subtitle>
-                    <div className="d-inline-flex align-items-center mt-4">
-                      <MailIcon className="mr-3" />
-                      
-                    </div>
-                  </div>
-                </Card.Body>
-              </Card>
-            </div>
-          </Col>
-          <Col md="8" className=" p-4 mt ">
-            <div className="d-inline-flex  p-2">
-              <h5 className="mr-5">Worked on</h5>
-              <a href="#" className="text-primary">
-                View all
-              </a>
-            </div>
-            <div>
-              <Paper className="" elevation="0">
-                <Card.Body>
-                  <Row>
-                    <Col md="6">
-                      <SimpleCard
-                        title="Softech"
-                        footer="Last updated on 3 March, 2020"
+                  <Paper style={{ minHeight: "40vh" }}>
+                    <Card.Header>Gernal Info</Card.Header>
+                    <Card.Body>
+                      <Field
+                        className="mt-2"
+                        component={AntInput}
+                        prefix={<MailOutlined />}
+                        type="input"
+                        // label="Email"
+                        name="email"
+                        disabled
                       />
-                    </Col>
-                    <Col md="6">
-                      <SimpleCard
-                        title="Softech"
-                        footer="Last updated on 3 March, 2020"
+                      <Field
+                        className="mt-2"
+                        component={AntInput}
+                        prefix={<PhoneOutlined />}
+                        type="input"
+                        // label="Phone No"
+                        name="phoneNo"
+                        disabled
                       />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <SimpleCard
-                        title="Softech"
-                        footer="Last updated on 3 March, 2020"
+                      <Field
+                        className="mt-2"
+                        component={AntInput}
+                        prefix={<ShoppingOutlined />}
+                        type="input"
+                        // label="Company"
+                        name="company"
+                        disabled
                       />
-                    </Col>
-                    <Col md="6">
-                      <SimpleCard
-                        title="Softech"
-                        footer="Last updated on 3 March, 2020"
+                      <Field
+                        className="mt-2"
+                        component={AntInput}
+                        prefix={<UserOutlined />}
+                        type="input"
+                        // label="About"
+                        name="about"
+                        disabled
                       />
-                    </Col>
-                  </Row>
+                    </Card.Body>
+                  </Paper>
+                </div>
+              </Col>
+              <Col md="8" className=" p-4 mt-3 ">
+                <div className="d-inline-flex  p-2">
+                  <h5 className="mr-5">Worked on</h5>
 
-                  <footer>
-                    <Button variant="light" size="sm">
-                      View all
-                    </Button>
-                  </footer>
-                </Card.Body>
-              </Paper>
-            </div>
+                  {/* <a href="#" className="text-primary">
+                    View all
+                  </a> */}
+                </div>
+                <div>
+                  <Paper className="" >
+                    <Card.Body>
+                      <div>
+                        <Empty
+                          className="w-100"
+                          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                          imageStyle={{
+                            height: 60,
+                          }}
+                          description={<span>No data avaliable</span>}
+                        />
+                      </div>
+                      <footer>
+                        {/* <Button variant="light" size="sm">
+                          View all
+                        </Button> */}
+                      </footer>
+                    </Card.Body>
+                  </Paper>
+                </div>
 
-            <div className="d-inline-flex  p-2 mt-4">
-              <h5 className="mr-5">You worked with</h5>
-            </div>
-            <Paper
-              elevation="0"
-              className="paper d-flex justify-content-center"
-            >
-              <div className="align-self-center">
-                <img src={Avatar1} />
-              </div>
-              <div
-                className="align-self-center mr-3"
-                style={{ marginLeft: -30 }}
-              >
-                <img src={Avatar2} />
-              </div>
-              <div className="align-self-center">
-                <Card.Text>There are no people to see here</Card.Text>
-              </div>
-            </Paper>
-          </Col>
-        </Row>
+                <div className="d-inline-flex  p-2 mt-4">
+                  <h5 className="mr-5">You worked with</h5>
+                </div>
+                <Paper
+                 
+                  className="paper d-flex justify-content-center"
+                >
+                  <div className="align-self-center">
+                    <img src={Avatar1} />
+                  </div>
+                  <div
+                    className="align-self-center mr-3"
+                    style={{ marginLeft: -30 }}
+                  >
+                    <img src={Avatar2} />
+                  </div>
+                  <div className="align-self-center">
+                    <Card.Text>There are no people to see here</Card.Text>
+                  </div>
+                </Paper>
+              </Col>
+            </Row>
+          )}
+        </Formik>
       </Aux>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AntInput, AntSelect } from "../../shared/components";
+import { AntInput } from "../../shared/components";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { withSnackbar } from "notistack";
@@ -7,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { Button } from "antd";
 import { connect } from "react-redux";
-import {UsergroupAddOutlined} from '@ant-design/icons'
+import { UsergroupAddOutlined } from "@ant-design/icons";
 
 const initialValues = {
   requestReciver: "",
@@ -31,7 +31,7 @@ class SendRequest extends Component {
         email: this.props.email,
         userId: this.props.userId,
         username: this.props.username,
-        name: this.props.name
+        name: this.props.name,
       },
       requestReciver: values.requestReciver,
     };
@@ -54,7 +54,9 @@ class SendRequest extends Component {
   render() {
     return (
       <div>
-        <h1 className="d-flex justify-content-center" style={{ color: '#08c' }}>Send a request</h1>
+        <h1 className="d-flex justify-content-center" style={{ color: "#08c" }}>
+          Send a request
+        </h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -65,14 +67,17 @@ class SendRequest extends Component {
               <Row className="mt-4">
                 <Col>
                   <div className="d-flex justify-content-center">
-                    <UsergroupAddOutlined style={{ fontSize: '50px', color: '#08c' }} />
+                    <UsergroupAddOutlined
+                      style={{ fontSize: "50px", color: "#08c" }}
+                    />
                   </div>
                   <div className="mt-3">
                     <h3>Email</h3>
                   </div>
                   <div>
                     <Field
-                      component={AntSelect}
+                      type="input"
+                      component={AntInput}
                       name="requestReciver"
                       placeholder="Enter email of your friend"
                       onChange={props.handleChange}

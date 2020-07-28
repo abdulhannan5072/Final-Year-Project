@@ -4,18 +4,13 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import Aux from "../../hoc/_Aux/index";
-import { Row, Col, Card } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { Row, Col } from "react-bootstrap";
 import { Button, Space, Popconfirm } from "antd";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
 
 import Table from "../../shared/components/Table";
 import { currentOpenProject } from "../../store/actions";
 
-const textStyle = {
-  color: "white",
-};
 
 class Projects extends Component {
   state = {
@@ -78,7 +73,8 @@ class Projects extends Component {
   };
 
   onProjectEditHandle = (record) => {
-    // console.log(record)
+    this.props.history.push("/project/settings/" + record._id);
+
   };
 
   // handleTableChange = (pagination, filters, sorter) => {

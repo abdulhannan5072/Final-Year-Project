@@ -132,3 +132,26 @@ export const osTypes = [
     label: "Android ",
   },
 ];
+
+export const roles = [
+  {
+    value: "",
+    label: "Select user role",
+  },
+  {
+    value: "Manager ",
+    label: "Manager",
+  },
+  {
+    value: "Designer",
+    label: "Designer ",
+  },
+  {
+    value: "Developer ",
+    label: "Developer ",
+  },
+  {
+    value: "Customer ",
+    label: "Customer ",
+  },
+];

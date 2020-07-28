@@ -1,5 +1,5 @@
 import React from 'react'
-// import {  useHistory } from 'react-router-dom'
+import {  useHistory } from 'react-router-dom'
 import axios from 'axios'
 import {
   
@@ -17,6 +17,7 @@ import { withSnackbar } from 'notistack';
 
 import { Input, Tooltip, Form , Button } from 'antd';
 import { InfoCircleOutlined, MailOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone, LockOutlined} from '@ant-design/icons';
+import { delay } from 'lodash'
 
 
 
@@ -40,7 +41,7 @@ const validateMessages =  e => ({
 
 const Register = (props) => {
 
-  // let history = useHistory();
+  let history = useHistory();
 
   
   
@@ -52,12 +53,15 @@ const Register = (props) => {
     }
     try{
       const response = await axios.post('/api/signup',data)
-      
+          console.log(response)
           if(response.data.post){
               props.enqueueSnackbar('Successfully registered', { 
                   variant: 'success',
               });
-              // history.push('/login')
+              delay(() => {
+                history.push('/login')
+              }, 3000)
+              
           }else {
               props.enqueueSnackbar('Failed', { 
                   variant: 'error',
@@ -72,7 +76,7 @@ const Register = (props) => {
 
 
   return (
-    <div className="c-app c-default-layout flex-row align-items-center">
+    <div className="c-app c-default-layout flex-row align-items-center bg-img">
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="9" lg="7" xl="6">
@@ -93,7 +97,7 @@ const Register = (props) => {
                         required: true,
                       }]}
                     >
-                      <Input.Password
+                      <Input
                         placeholder="Your name"
                         prefix={<UserOutlined className="site-form-item-icon" />}
                       />

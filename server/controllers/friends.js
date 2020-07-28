@@ -76,7 +76,7 @@ exports.sendFriendRequest = (req, res, next) => {
                         { new: true, useFindAndModify: false },
                         (err, doc) => {
                           if (err) return res.status(400).send(err);
-                          io.getIo().emit("friend", { message: "Request send" });
+                          // io.getIo().emit("friend", { message: "Request send" });
                           res.status(200).json({
                             message: "Friend request sent",
                           });
@@ -99,7 +99,6 @@ exports.sendFriendRequest = (req, res, next) => {
 exports.friendRequestAccepted = (req, res) => {
   const { accepter, requester } = req.body;
   const accepterEmail = accepter.email;
-
   User.findOne({ username: requester }, (err, requesterData) => {
     if (err) return res.status(400).send(err);
     if (!requesterData) {
@@ -150,7 +149,7 @@ exports.friendRequestAccepted = (req, res) => {
                   };
                   const updatingFriendsList = {
                     friendsList: {
-                      friendId: accepter._id,
+                      friendId: accepter.userId,
                       friendUsername: accepter.username,
                       name: accepter.name,
                     },

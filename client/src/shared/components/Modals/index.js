@@ -36,6 +36,7 @@ export default function TransitionModal(props) {
     <div>
       <Modal
         {...props}
+        style={{zIndex: 20}}
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}

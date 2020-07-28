@@ -39,3 +39,4 @@ export { default as FriendsCard } from "./Cards/FriendsCard";
 export { UserCard } from "./Cards/UserCard";
 
 export {default as ModalDialog} from './Modals/ModalDialog'
+export {default as AutoComplete} from './CreateAntdFields/Autocomplete';

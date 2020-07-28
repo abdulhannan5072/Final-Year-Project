@@ -8,7 +8,7 @@ import SendRequest from "./SendRequest";
 import { connect } from "react-redux";
 import { withSnackbar } from "notistack";
 import { Link } from "react-router-dom";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 let socket;
 
@@ -28,9 +28,9 @@ class Friends extends Component {
   initSocket() {
     socket = io("localhost:4000");
 
-    socket.on('friends', (data) => {
-      console.log(data.message)
-    })
+    socket.on("friends", (data) => {
+      console.log(data.message);
+    });
   }
 
   async fetchRequests() {
@@ -114,8 +114,8 @@ class Friends extends Component {
               <SendRequest onClose={this.handleClose} />
             </Modal>
           </Row>
-          <Row className="bg-white p-2" style={{ minHeight: "150px" }}>
-            {this.state.requests[0]  ? (
+          <Row className=" p-2" style={{ minHeight: "150px" }}>
+            {this.state.requests[0] ? (
               this.state.requests.map((obj) => (
                 <Col key={obj._id} className="mt-4">
                   <UserCard
@@ -137,9 +137,12 @@ class Friends extends Component {
               ))
             ) : (
               <Empty
-                className=" w-100"
-                description="No Requests available"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                className="w-100"
+                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                imageStyle={{
+                  height: 60,
+                }}
+                description={<span>No requests avaliable</span>}
               />
             )}
           </Row>
@@ -148,21 +151,28 @@ class Friends extends Component {
               <h2>Friends List</h2>
             </div>
           </Row>
-          <Row className="bg-white p-2" style={{ minHeight: "150px" }}>
-            {this.state.friendsList[0]  ? (
+          <Row className=" p-2" style={{ minHeight: "150px" }}>
+            {this.state.friendsList[0] ? (
               this.state.friendsList.map((obj) => (
                 <Col key={obj._id} className="mt-4">
-                  <Link to='#' >
+                  <Link to="#">
                     <UserCard username={obj.username} name={obj.name} />
                   </Link>
                 </Col>
               ))
             ) : (
               <Empty
-                className=" w-100"
-                description="Add to see friends"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
+                className="w-100"
+                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                imageStyle={{
+                  height: 60,
+                }}
+                description={<span>No friends add</span>}
+              >
+                <Button onClick={this.handleOpen} type="primary">
+                  Add friends
+                </Button>
+              </Empty>
             )}
           </Row>
         </Col>
@@ -172,7 +182,7 @@ class Friends extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    userId: state.auth.user.userId,
+    userId: state.auth.userId,
     email: state.auth.user.email,
     username: state.auth.user.username,
     name: state.auth.user.name,

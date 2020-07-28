@@ -56,4 +56,19 @@ routes.get("/getFriendsList/:id", (req, res) => {
   });
 });
 
+routes.get("/getFriend/:id/:username", (req, res) => {
+  User.findOne({_id: req.params.id, friendsList: {$elemMatch: {friendUsername: req.params.username}}}, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.status(200).json({
+        message: "user not found",
+      });
+      const data = doc.friendsList.filter(key=> key.friendUsername === req.params.username)
+    res.status(200).json({
+      friend: data,
+    });
+  });
+});
+
+
 module.exports = routes;

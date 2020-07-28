@@ -52,7 +52,7 @@ class Create extends Component {
       );
       if (res.data) {
         let buildFromApi = res.data.map((key) => {
-          return { label: key.build, value: key._id };
+          return { label: key.build, value: key.build };
         });
         this.setState({
           build: [{ label: "Select build", value: "" }].concat(buildFromApi),
@@ -70,7 +70,7 @@ class Create extends Component {
       );
       if (res.data) {
         let moduleFromApi = res.data.map((key) => {
-          return { label: key.module, value: key._id };
+          return { label: key.module, value: key.module };
         });
         this.setState({
           module: [{ label: "Select Module", value: "" }].concat(moduleFromApi),

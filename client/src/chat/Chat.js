@@ -6,8 +6,9 @@ import { Row, Col } from "react-bootstrap";
 import io from "socket.io-client";
 import Message from "./Message";
 import SendForm from "./SendForm";
-import {UserCard} from "../shared/components";
+import { UserCard, Modal } from "../shared/components";
 import { connect } from "react-redux";
+import User from "./User";
 
 let socket;
 const { Meta } = Card;
@@ -18,8 +19,10 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       message: "",
+      open: false,
       messages: [],
       currentSelectedFriend: "Bob",
+      chatList: [],
     };
   }
 
@@ -51,6 +54,25 @@ class Chat extends React.Component {
     this.setState({ message: e.target.value });
   };
 
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleChatList = (data) => {
+    const oldList = this.state.chatList;
+    const updatedList = [...oldList, data];
+    this.setState({ chatList: updatedList, currentSelectedFriend: data.username });
+  };
+  // selectHandle(data) {
+  //   console.log(data)
+  //   this.setState({
+  //     currentSelectedFriend: data,
+  //   })
+  // }
+
   onClick = (e) => {
     e.preventDefault();
     if (this.state.message) {
@@ -74,15 +96,24 @@ class Chat extends React.Component {
             <Col md="4">
               <div className="d-flex p-2">
                 <h3>Chatting</h3>
-                <Button className="ml-auto" type="primary">
-                  Create new
+                <Button
+                  className="ml-auto"
+                  type="primary"
+                  onClick={this.handleOpen}
+                >
+                  Select friend
                 </Button>
+                <Modal open={this.state.open} onClose={this.handleClose}>
+                  <User
+                    handleChatList={this.handleChatList}
+                    onClose={this.handleClose}
+                  />
+                </Modal>
               </div>
               <div className=" fixed-size-chat-div p-2">
-                <Link to="#">
-                  <UserCard  />
-                </Link>
-                
+                {this.state.chatList.map((val, idx) => (
+                    <UserCard username={val.username} name={val.name} key={idx} />
+                ))}
               </div>
             </Col>
             <Col md="8">
