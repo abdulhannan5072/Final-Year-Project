@@ -1,6 +1,6 @@
 const routes = require("express").Router();
 const { Project } = require("../models/project");
-const projectController = require("../controllers/projects")
+const projectController = require("../controllers/projects");
 
 //Create
 routes.post("/api/projects/create", (req, res) => {
@@ -62,13 +62,30 @@ routes.post("/api/projects/update", (req, res) => {
 });
 
 // add user into team
-routes.post("/api/addUserInProject/:pid", projectController.addUserInProject)
+routes.post("/api/addUserInProject/:pid", projectController.addUserInProject);
 
 //remove user from team
-routes.post("/api/removeUserFromProject/:pid", projectController.removeUserFromProject)
+routes.post(
+  "/api/removeUserFromProject/:pid",
+  projectController.removeUserFromProject
+);
 
 //change role of user in team
 // routes.post("/api/changeRole/:pid", projectController.changeRole)
+
+routes.get("/api/getTeam/:pid", (req, res) => {
+  Project.findOne({ _id: req.params.pid }, (err, doc) => {
+    if (err) return res.status(400).send(err);
+    if (!doc)
+      return res.status(200).json({
+        message: "project not found",
+      });
+    const data = doc.team;
+    res.status(200).json({
+      team: data,
+    });
+  });
+});
 
 
 module.exports = routes;

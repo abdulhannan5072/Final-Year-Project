@@ -16,16 +16,34 @@ class Settings extends Component {
     loading: false,
   };
 
+  componentDidMount() {
+    this.getTeam();
+  }
+
+  async getTeam() {
+    try {
+      const res = await axios.get("/api/getTeam/" + this.props.match.params.Pid);
+      this.setState({
+        data: await res.data.team,
+      });
+      console.log(this.state.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   onProjectDeleteHandle = (record) => {
-    const id = {
-      _id: record._id,
-    };
+    const data = {
+      username: record.username,
+      userId: record.userId,
+      role: record.role,
+    }
     axios
-      .post("/api/projects/delete", id)
+      .post("/api/removeUserFromProject/" + this.props.match.params.Pid, data)
       .then((res) => {
         console.log(res);
         if (res.request.status === 201) {
-          this.fetch();
+          this.getTeam();
         }
       })
       .catch((err) => {
@@ -47,8 +65,8 @@ class Settings extends Component {
   render() {
     const columns = [
       {
-        title: "Name",
-        dataIndex: "name",
+        title: "Username",
+        dataIndex: "username",
         key: "name",
         width: "30%",
       },

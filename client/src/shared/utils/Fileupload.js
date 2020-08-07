@@ -17,23 +17,23 @@ class Fileupload extends Component {
     });
   };
 
-  uploadRequest = async ({ file, onSuccess, onProgress }) => {
-    const userId = this.props.authInfo.userId;
+  // uploadRequest = async ({ file, onSuccess, onProgress }) => {
+  //   const userId = this.props.authInfo.userId;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append = ("user", userId);
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append = ("user", userId);
 
-    try {
-      const res = await axios.post("/api/upload", formData);
-      // console.log(res);
-      onProgress(e => {
-        console.log(e)
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const res = await axios.post("/api/upload", formData);
+  //     // console.log(res);
+  //     onProgress(e => {
+  //       console.log(e)
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   onChange = (info) => {
     // const file = event.target.files[0];
@@ -81,7 +81,7 @@ class Fileupload extends Component {
           </Dragger>
         </Modal>
 
-        <Upload
+        {/* <Upload
           fileList={this.state.selectedFile}
           customRequest={this.uploadRequest}
           onChange={this.onChange}
@@ -89,7 +89,7 @@ class Fileupload extends Component {
           <Button>
             <UploadOutlined /> Click to Upload
           </Button>
-        </Upload>
+        </Upload> */}
       </form>
     );
   }

@@ -82,7 +82,7 @@ const routes = [
   {
     path: "/project/settings/:Pid",
     exact: true,
-    name: "Settingss",
+    name: "Settings",
     component: Auth(projectSettings, true),
   },
   {
