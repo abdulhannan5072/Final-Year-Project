@@ -49,7 +49,7 @@ class AddUser extends Component {
       `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
     );
     const friend = result;
-    console.log(friend);
+    // console.log(friend);
     this.setState({ options: friend });
   };
 

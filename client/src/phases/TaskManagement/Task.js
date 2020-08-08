@@ -136,7 +136,6 @@ class Task extends Component {
     const { data, loading } = this.state;
 
     return (
-      <Container>
         <Row>
           <Card
             title="Task"
@@ -161,7 +160,6 @@ class Task extends Component {
             />
           </Card>
         </Row>
-      </Container>
     );
   }
 }

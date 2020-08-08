@@ -42,10 +42,18 @@ routes.post("/api/projects/find", function (req, res) {
 //getData
 
 routes.get("/api/getProjects/:id", (req, res) => {
-  Project.find({ owner: req.params.id }, (err, data) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).send(data);
-  });
+  Project.find(
+    {
+      $or: [
+        { owner: req.params.id },
+        { team: { $elemMatch: { userId: req.params.id } } }
+      ],
+    },
+    (err, data) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).send(data);
+    }
+  );
 });
 
 //Update
@@ -86,6 +94,5 @@ routes.get("/api/getTeam/:pid", (req, res) => {
     });
   });
 });
-
 
 module.exports = routes;

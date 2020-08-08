@@ -12,7 +12,7 @@ const buildschema = mongoose.Schema(
       require: true,
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       require: true,
       ref: "User",
     },

@@ -69,16 +69,10 @@ class Build extends Component {
           showTitle: false,
         },
         render: (address) => (
-          <Tooltip placement="topLeft" title={address}>
-            {address}
+          <Tooltip placement="topLeft" title={address.replace(/<[^>]*>/g, "")}>
+            {address.replace(/<[^>]*>/g, "")}
           </Tooltip>
         ),
-      },
-      {
-        title: "Created",
-        dataIndex: "createdDate",
-        key: "createdDate",
-        sorter: "true",
       },
       {
         title: "By",

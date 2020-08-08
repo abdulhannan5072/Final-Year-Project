@@ -8,6 +8,9 @@ const Complete = (props) => {
 const {onSelect, onSearch, onChange, data} = props;
   return (
     <>
+      <p>
+        {props.label}
+      </p>
       <AutoComplete
         {...props}        
         style={{

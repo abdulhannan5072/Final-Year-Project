@@ -23,8 +23,7 @@ const initialValues = {
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Required")
-    .min(2, "Too Short ")
-    .max(6, "Too Long "),
+    .min(2, "Too Short "),
   functionalityType: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
   requirements: Yup.string().required("Required"),

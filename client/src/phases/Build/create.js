@@ -119,7 +119,7 @@ class Create extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.userId,
+    currentUser: state.auth.user.username,
   };
 };
 export default connect(mapStateToProps)(withSnackbar(Create));

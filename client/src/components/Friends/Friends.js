@@ -156,7 +156,7 @@ class Friends extends Component {
               this.state.friendsList.map((obj) => (
                 <Col key={obj._id} className="mt-4">
                   <Link to="#">
-                    <UserCard username={obj.username} name={obj.name} />
+                    <UserCard username={obj.friendUsername} name={obj.name} />
                   </Link>
                 </Col>
               ))

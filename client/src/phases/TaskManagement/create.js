@@ -6,6 +6,7 @@ import {
   AntSelect,
   QuillEditorFormik,
   AntDatePicker,
+  AutoComplete,
 } from "../../shared/components";
 import { Field, Formik, Form } from "formik";
 import { Col, Row } from "react-bootstrap";
@@ -17,22 +18,23 @@ import { dateFormat } from "../../shared/utils/dateTime";
 import { withSnackbar } from "notistack";
 import axios from "axios";
 import { connect } from "react-redux";
+import { search } from "../../shared/utils/AsyncFetch";
 
 const initialValues = {
   taskName: "",
   status: "To do",
   description: "",
   attachmentUrl: "",
-  assignTo: "",
-  startDate: moment(Date.now()),
-  dueDate: "",
+  // assignTo: "",
+  // startDate: moment(Date.now()),
+  // dueDate: "",
   createdBy: "",
 };
 
 const validationSchema = Yup.object().shape({
   taskName: Yup.string().min(3, "Too Short!").required("Required"),
   status: Yup.string().required("Required"),
-  assignTo: Yup.string().required("Required"),
+  // assignTo: Yup.string().required("Required"),
   startDate: Yup.string().required("Required"),
   dueDate: Yup.string().required("Required"),
 });
@@ -42,6 +44,9 @@ class Create extends Component {
     loading: false,
     selectedFile: null,
     selectedFileList: [],
+    options: [],
+    value: "",
+    username: "",
   };
   onSubmit = (values) => {
     this.setState = {
@@ -49,6 +54,7 @@ class Create extends Component {
     };
     const data = {
       ...values,
+      assignTo: this.state.username,
       createdBy: this.props.currentUser,
       project: this.props.match.params.Pid,
     };
@@ -60,11 +66,32 @@ class Create extends Component {
         this.props.enqueueSnackbar("Fault created", {
           variant: "info",
         });
-        this.props.history.push(
-          "/" + this.props.match.params.Pid + "/task"
-        );
+        this.props.history.push("/" + this.props.match.params.Pid + "/task");
       }
     });
+  };
+  onSearch = async (searchText) => {
+    const result = await search(
+      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+    );
+    const friend = result;
+    console.log(friend);
+    this.setState({ options: friend });
+  };
+
+  onSelect = (data) => {
+    this.state.options.map((key) => {
+      return key.friendUsername === data
+        ? this.setState({
+            username: data,
+            userId: key.friendId,
+          })
+        : null;
+    });
+  };
+
+  onChange = (data) => {
+    this.setState({ value: data });
   };
 
   render() {
@@ -99,17 +126,6 @@ class Create extends Component {
                   <Col md="4">
                     <div className="">
                       <Field
-                        type="input"
-                        component={AntInput}
-                        label="Assign To"
-                        name="assignTo"
-                        hasFeedback
-                      />
-                    </div>
-                  </Col>
-                  <Col md="4">
-                    <div className="">
-                      <Field
                         component={AntSelect}
                         name="status"
                         options={status}
@@ -132,8 +148,20 @@ class Create extends Component {
                   </Col>
                 </Row>
                 <Row>
+                  <Col className='mt-2' >
+                    <AutoComplete
+                      label="Assign To"
+                      placeholder="Search friend username"
+                      onSelect={this.onSelect}
+                      onSearch={this.onSearch}
+                      onChange={this.onChange}
+                      data={this.state.options}
+                    />
+                  </Col>
+                </Row>
+                <Row >
                   <Col md="2">
-                    <div className="mt-2">
+                    <div className="mt-3">
                       <Field
                         component={AntDatePicker}
                         defaultValue={props.values.startDate}
@@ -145,7 +173,7 @@ class Create extends Component {
                     </div>
                   </Col>
                   <Col md="2">
-                    <div className="mt-2">
+                    <div className="mt-3">
                       <Field
                         component={AntDatePicker}
                         label="Due Date"
@@ -192,6 +220,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(withSnackbar(Create));
+export default connect(mapStateToProps)(withSnackbar(Create));

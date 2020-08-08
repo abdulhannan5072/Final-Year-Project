@@ -14,10 +14,12 @@ import {
   AntSelect,
   QuillEditorFormik,
   AntDatePicker,
+  AutoComplete,
 } from "../../shared/components";
-import {dateFormat, formatDate} from '../../shared/utils/dateTime'
+import { dateFormat, formatDate } from "../../shared/utils/dateTime";
 import { status } from "../../shared/constants/Types";
-import moment from 'moment'
+import moment from "moment";
+import { search } from "../../shared/utils/AsyncFetch";
 
 const validationSchema = Yup.object().shape({
   taskName: Yup.string().min(3, "Too Short!").required("Required"),
@@ -31,15 +33,17 @@ class Edit extends Component {
   state = {
     loading: false,
     data: {
-        taskName: "",
-        status: "",
-        description: "",
-        attachmentUrl: "",
-        assignTo: "",
-        startDate: "",
-        dueDate: "",
+      taskName: "",
+      status: "",
+      description: "",
+      attachmentUrl: "",
+      assignTo: "",
+      startDate: "",
+      dueDate: "",
     },
-
+    options: [],
+    value: "",
+    username: "",
     selectedFile: null,
     selectedFileList: [],
   };
@@ -55,8 +59,9 @@ class Edit extends Component {
       this.setState({
         loading: false,
         data: await response.data,
+        options:await [ {friendUsername:response.data.assignTo}],
       });
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -78,137 +83,157 @@ class Edit extends Component {
         this.props.enqueueSnackbar("Updated sucessfully", {
           variant: "info",
         });
-        this.props.history.push(
-          "/" + this.props.match.params.Pid + "/task"
-        );
+        this.props.history.push("/" + this.props.match.params.Pid + "/task");
       }
     });
   };
+  onSearch = async (searchText) => {
+    const result = await search(
+      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+    );
+    const friend = result;
+    console.log(friend);
+    this.setState({ options: friend });
+  };
 
+  onSelect = (data) => {
+    this.state.options.map((key) => {
+      return key.friendUsername === data
+        ? this.setState({
+            username: data,
+            // userId: key.friendId,
+          })
+        : null;
+    });
+  };
+
+  onChange = (data) => {
+    this.setState({ value: data });
+  };
   render() {
-
-    console.log()
+    console.log();
     return (
       <Aux>
         <div className="page">
-            <Formik
-              enableReinitialize={true}
-              initialValues={{
-                taskName: this.state.data.taskName,
-                status: this.state.data.status,
-                description: this.state.data.description,
-                attachmentUrl: this.state.data.attachmentUrl,
-                assignTo: this.state.data.assignTo,
-                startDate: '',
-                dueDate: '',
-              }}
-              validationSchema={validationSchema}
-              onSubmit={this.onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  <Card title="Create task">
-                    <div>
-                      <Row>
-                        <Col>
-                          <div className="mt-2">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Summary"
-                              name="taskName"
-                              onChange={props.handleChange}
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <div className="">
-                        <QuillEditorFormik
-                          label="Description"
-                          name="description"
-                        />
-                      </div>
-                      <Row className="mt-3">
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Assign To"
-                              name="assignTo"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              component={AntSelect}
-                              name="status"
-                              options={status}
-                              label="Status"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-
-                        <Col md="4">
-                          <div className="">
-                            <Field
-                              type="input"
-                              component={AntInput}
-                              label="Attachment"
-                              name="attachmentUrl"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="4">
-                          <div className="mt-2">
-                            <Field
-                              component={AntDatePicker}
-                              defaultValue={formatDate(this.state.data.startDate)}
-                              format={dateFormat}
-                              label="Start Date"
-                              name="startDate"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                        <Col md="4">
-                          <div className="mt-2">
-                            <Field
-                              component={AntDatePicker}
-                              label="Due Date"
-                              defaultValue={formatDate(this.state.data.startDate)}
-                              format={dateFormat}
-                              name="dueDate"
-                              hasFeedback
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-
-                      <div className="mt-5 flex-row-reverse d-flex">
-                        <Button
-                          loading={props.loading}
-                          type="primary"
-                          htmlType="submit"
-                        >
-                          Save
-                        </Button>
-                        <Link to={"/" + this.props.match.params.Pid + "/task"}>
-                          <Button className="mr-2">Cancel</Button>
-                        </Link>
-                      </div>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{
+              taskName: this.state.data.taskName,
+              status: this.state.data.status,
+              description: this.state.data.description,
+              attachmentUrl: this.state.data.attachmentUrl,
+              startDate: "",
+              dueDate: "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={this.onSubmit}
+          >
+            {(props) => (
+              <Form>
+                <Card title="Create task">
+                  <div>
+                    <Row>
+                      <Col>
+                        <div className="mt-2">
+                          <Field
+                            type="input"
+                            component={AntInput}
+                            label="Summary"
+                            name="taskName"
+                            onChange={props.handleChange}
+                            hasFeedback
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                    <div className="">
+                      <QuillEditorFormik
+                        label="Description"
+                        name="description"
+                      />
                     </div>
-                  </Card>
-                </Form>
-              )}
-            </Formik>
+                    <Row className="mt-3">
+                      <Col md="4">
+                        <div className="">
+                          <Field
+                            component={AntSelect}
+                            name="status"
+                            options={status}
+                            label="Status"
+                            hasFeedback
+                          />
+                        </div>
+                      </Col>
+
+                      <Col md="4">
+                        <div className="">
+                          <Field
+                            type="input"
+                            component={AntInput}
+                            label="Attachment"
+                            name="attachmentUrl"
+                            hasFeedback
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col className="mt-2">
+                        <AutoComplete
+                          value={this.state.data.assignTo}
+                          label="Assign To"
+                          placeholder="Search friend username"
+                          onSelect={this.onSelect}
+                          onSearch={this.onSearch}
+                          onChange={this.onChange}
+                          data={this.state.options}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md="4">
+                        <div className="mt-2">
+                          <Field
+                            component={AntDatePicker}
+                            defaultValue={formatDate(this.state.data.startDate)}
+                            format={dateFormat}
+                            label="Start Date"
+                            name="startDate"
+                            hasFeedback
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div className="mt-2">
+                          <Field
+                            component={AntDatePicker}
+                            label="Due Date"
+                            defaultValue={formatDate(this.state.data.startDate)}
+                            format={dateFormat}
+                            name="dueDate"
+                            hasFeedback
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <div className="mt-5 flex-row-reverse d-flex">
+                      <Button
+                        loading={props.loading}
+                        type="primary"
+                        htmlType="submit"
+                      >
+                        Save
+                      </Button>
+                      <Link to={"/" + this.props.match.params.Pid + "/task"}>
+                        <Button className="mr-2">Cancel</Button>
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              </Form>
+            )}
+          </Formik>
         </div>
       </Aux>
     );
