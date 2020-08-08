@@ -18,7 +18,8 @@ const validationSchema = Yup.object().shape({
   selectBuild: Yup.string().required("Required"),
   selectModule: Yup.string().required("Required"),
   faultType: Yup.string().required("Required"),
-  fault: Yup.string().required("Required"),
+  fault: Yup.string().required("Required") .min(1, "Too Short ")
+  .max(11, "Too Long "),
 });
 
 class Edit extends Component {

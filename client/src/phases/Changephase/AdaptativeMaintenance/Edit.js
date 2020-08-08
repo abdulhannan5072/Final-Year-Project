@@ -15,7 +15,9 @@ import { QuillEditorFormik } from "../../../shared/components";
 import { affectedReqType } from "../../../shared/constants/Types";
 
 const validationSchema = Yup.object().shape({
-  affected: Yup.string().required("Required"),
+  affected: Yup.string().required("Required")
+   .min(1, "Too Short ")
+  .max(11, "Too Long "),
   type: Yup.string().required("Required"),
   affectedBy: Yup.string().required("Required"),
   description: Yup.string().required("Required"),

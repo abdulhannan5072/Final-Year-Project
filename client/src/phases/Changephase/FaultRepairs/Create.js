@@ -27,8 +27,8 @@ const validationSchema = Yup.object().shape({
   faultType: Yup.string().required("Required"),
   fault: Yup.string()
     .required("Required")
-    .min(2, "Too Short ")
-    .max(6, "Too Long "),
+    .min(1, "Too Short ")
+    .max(11, "Too Long "),
 });
 
 class Create extends Component {
