@@ -1,10 +1,10 @@
 export default [
-  {
-    _tag: "CSidebarNavItem",
-    name: "Dashboard",
-    icon:"cil3d",
-    to: "/dashboard",
-  },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: "Dashboard",
+  //   icon:"cil3d",
+  //   to: "/dashboard",
+  // },
   {
     _tag: "CSidebarNavItem",
     name: "Projects",

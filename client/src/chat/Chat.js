@@ -31,8 +31,7 @@ class Chat extends React.Component {
   }
    
   componentWillUnmount(){
-    // socket.emit('disconnect', { user: this.props.currentUser } )
-    socket.disconnect({ user: this.props.currentUser });
+    socket.emit('leave', { user: this.props.currentUser } )
   }
 
   initSocket() {

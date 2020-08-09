@@ -59,6 +59,7 @@ class Settings extends Component {
     this.setState({ open: true });
   };
   handleClose = () => {
+    this.getTeam();
     this.setState({ open: false });
   };
 

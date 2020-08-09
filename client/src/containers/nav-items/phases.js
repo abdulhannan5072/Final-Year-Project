@@ -24,10 +24,10 @@ export default [
         name: 'Defect Management',
         to: '/defect',
     },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Reports',
-        to: '#',
-    }, 
+    // {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Reports',
+    //     to: '#',
+    // }, 
 
 ]
