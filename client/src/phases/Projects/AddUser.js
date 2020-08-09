@@ -46,7 +46,7 @@ class AddUser extends Component {
   // }
   onSearch = async (searchText) => {
     const result = await search(
-      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+      `/api/getFriend/${this.props.userId}/${searchText}`
     );
     const friend = result;
     // console.log(friend);
@@ -144,12 +144,9 @@ class AddUser extends Component {
     );
   }
 }
-// const mapStateToProps = (state) => {
-//   return {
-//     userId: state.auth.user.userId,
-//     email: state.auth.user.email,
-//     username: state.auth.user.username,
-//     name: state.auth.user.name,
-//   };
-// };
-export default withRouter(withSnackbar(AddUser));
+const mapStateToProps = (state) => {
+  return {
+    userId: state.auth.user.userId,
+  };
+};
+export default withRouter(connect(mapStateToProps)(withSnackbar(AddUser)));
