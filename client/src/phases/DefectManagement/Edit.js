@@ -12,6 +12,7 @@ import axios from "axios";
 import {
   AntInput,
   AntSelect,
+  AutoComplete,
   QuillEditorFormik,
 } from "../../shared/components";
 import { dateFormat, formatDate } from "../../shared/utils/dateTime";
@@ -22,6 +23,7 @@ import {
   osTypes,
   priority,
 } from "../../shared/constants/Types";
+import { search } from "../../shared/utils/AsyncFetch";
 
 const validationSchema = Yup.object().shape({
   selectBuild: Yup.string().required("Select build"),
@@ -29,7 +31,7 @@ const validationSchema = Yup.object().shape({
   defectType: Yup.string().required("Select this field"),
   defect: Yup.string().min(5, "Too Short").required("This field is Required"),
   priority: Yup.string().required("Select this field"),
-  assignTo: Yup.string().required(" This field is Required"),
+  // assignTo: Yup.string().required(" This field is Required"),
   status: Yup.string().required("Select this field"),
   os: Yup.string().required("Select this field"),
 });
@@ -47,6 +49,9 @@ class Edit extends Component {
       assignTo: "",
       priority: "",
       status: "",
+      options: [],
+    value: "",
+    username: "",
     },
 
     selectedFile: null,
@@ -76,6 +81,8 @@ class Edit extends Component {
     };
     const data = {
       ...values,
+      assignTo: this.state.username,
+
     };
     const id = this.props.match.params.id;
     axios.post("/api/defect/" + id, data).then((res) => {
@@ -90,7 +97,29 @@ class Edit extends Component {
       }
     });
   };
+  onSearch = async (searchText) => {
+    const result = await search(
+      `/api/getFriend/${this.props.currentUser}/${searchText}`
+    );
+    const friend = result;
+    console.log(friend);
+    this.setState({ options: friend });
+  };
 
+  onSelect = (data) => {
+    this.state.options.map((key) => {
+      return key.friendUsername === data
+        ? this.setState({
+            username: data,
+            userId: key.friendId,
+          })
+        : null;
+    });
+  };
+
+  onChange = (data) => {
+    this.setState({ value: data });
+  };
   render() {
     return (
       <Aux>
@@ -210,18 +239,17 @@ class Edit extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col sm="6" md="4">
-                      <div className="mt-2">
-                        <Field
-                          component={AntInput}
-                          type="input"
-                          label="Assign To"
-                          name="assignTo"
-                          hasFeedback
-                        />
-                      </div>
-                    </Col>
-                  </Row>
+                <Col className="mt-2">
+                  <AutoComplete
+                    label="Assign To"
+                    placeholder="Search friend username"
+                    onSelect={this.onSelect}
+                    onSearch={this.onSearch}
+                    onChange={this.onChange}
+                    data={this.state.options}
+                  />
+                </Col>
+              </Row>
                   <div className="mt-3 flex-row-reverse d-flex">
                     <Button
                       loading={props.loading}

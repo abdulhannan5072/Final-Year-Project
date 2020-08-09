@@ -11,6 +11,8 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { logout } from "../store/actions";
+import Avatar from './hacker.png';
+
 
 const TheHeaderDropdown = (props) => {
   //mapStateToProps
@@ -34,7 +36,7 @@ const TheHeaderDropdown = (props) => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={"avatars/6.jpg"}
+            src={Avatar}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
