@@ -25,7 +25,7 @@ const initialValues= {
   username: '',
   email: '',
   password: '',
-  repeatpassword: '',
+  name: '',
 };
 
 const validateMessages =  e => ({
@@ -47,6 +47,7 @@ const Register = (props) => {
   
   const onFinish = async (values) => {
     const data = {
+      name: values.name,
       email: values.email.toLowerCase(),
       username: values.username,
       password: values.password,

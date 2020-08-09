@@ -23,6 +23,9 @@ const createmodule = React.lazy(() => import("./phases/Module/create"));
 const taskCreate = React.lazy(() => import("./phases/TaskManagement/Create"));
 const task = React.lazy(() => import("./phases/TaskManagement/Task"));
 const edittask = React.lazy(() => import("./phases/TaskManagement/Edit"));
+const Todo = React.lazy(() => import("./phases/TaskManagement/TasksList/Todo"));
+const InProgress = React.lazy(() => import("./phases/TaskManagement/TasksList/InProgress"));
+const Done = React.lazy(() => import("./phases/TaskManagement/TasksList/Done"));
 
 // const testphase =React.lazy(()=> import('./phases/Testphase/create'));
 const createDefect = React.lazy(() =>
@@ -195,7 +198,7 @@ const routes = [
   {
     path: "/:Pid/task/create",
     exact: true,
-    name: "Task",
+    name: "Create",
     component: Auth(taskCreate, true),
   },
   {
@@ -203,6 +206,24 @@ const routes = [
     exact: true,
     name: "Task",
     component: Auth(task, true),
+  },
+  {
+    path: "/:Pid/task/todo",
+    exact: true,
+    name: "To do Tasks",
+    component: Auth(Todo, true),
+  },
+  {
+    path: "/:Pid/task/inProgress",
+    exact: true,
+    name: "In Progress Tasks",
+    component: Auth(InProgress, true),
+  },
+  {
+    path: "/:Pid/task/done",
+    exact: true,
+    name: "Done Tasks",
+    component: Auth(Done, true),
   },
   {
     path: "/:Pid/task/:id",

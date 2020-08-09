@@ -24,9 +24,9 @@ import { search } from "../../shared/utils/AsyncFetch";
 const validationSchema = Yup.object().shape({
   taskName: Yup.string().min(3, "Too Short!").required("Required"),
   status: Yup.string().required("Required"),
-  assignTo: Yup.string().required("Required"),
-  startDate: Yup.string().required("Required"),
-  dueDate: Yup.string().required("Required"),
+  // assignTo: Yup.string().required("Required"),
+  // startDate: Yup.string().required("Required"),
+  // dueDate: Yup.string().required("Required"),
 });
 
 class Edit extends Component {
@@ -59,7 +59,7 @@ class Edit extends Component {
       this.setState({
         loading: false,
         data: await response.data,
-        options:await [ {friendUsername:response.data.assignTo}],
+        options:[ {friendUsername:response.data.assignTo}],
       });
       // console.log(response);
     } catch (err) {
@@ -73,6 +73,7 @@ class Edit extends Component {
     };
     const data = {
       ...values,
+      assignTo: this.state.value
     };
     const id = this.props.match.params.id;
     axios.post("/api/task/" + id, data).then((res) => {
@@ -111,7 +112,6 @@ class Edit extends Component {
     this.setState({ value: data });
   };
   render() {
-    console.log();
     return (
       <Aux>
         <div className="page">
@@ -122,15 +122,15 @@ class Edit extends Component {
               status: this.state.data.status,
               description: this.state.data.description,
               attachmentUrl: this.state.data.attachmentUrl,
-              startDate: "",
-              dueDate: "",
+              // startDate: "",
+              // dueDate: "",
             }}
             validationSchema={validationSchema}
             onSubmit={this.onSubmit}
           >
             {(props) => (
               <Form>
-                <Card title="Create task">
+                <Card title="Edit task">
                   <div>
                     <Row>
                       <Col>
@@ -180,7 +180,7 @@ class Edit extends Component {
                     <Row>
                       <Col className="mt-2">
                         <AutoComplete
-                          value={this.state.data.assignTo}
+                          defaultValue={this.state.data.assignTo}
                           label="Assign To"
                           placeholder="Search friend username"
                           onSelect={this.onSelect}

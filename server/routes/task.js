@@ -64,36 +64,46 @@ routes.post("/api/task/:id", function (req, res) {
 });
 
 routes.get("/api/getToDoTask/:user", (req, res) => {
-  Task.find({ assignTo: req.params.user, status: "To Do" }, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    if (!doc)
-      return res.status(200).json({
-        message: "Not found",
-      });
-    res.status(200).send(data);
-  });
+  Task.find(
+    { $and: [{ assignTo: req.params.user }, { status: "To do" }] },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      if (!doc)
+        return res.status(200).json({
+          message: "Not found",
+        });
+      res.status(200).send(doc);
+    }
+  );
 });
 
 routes.get("/api/getInProgressTask/:user", (req, res) => {
-  Task.find({ assignTo: req.params.user, status: "In Progress" }, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    if (!doc)
-      return res.status(200).json({
-        message: "Not found",
-      });
-    res.status(200).send(data);
-  });
+  Task.find(
+    { $and: [{ assignTo: req.params.user }, { status: "In Progress" }] },
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      if (!doc)
+        return res.status(200).json({
+          message: "Not found",
+        });
+      res.status(200).send(doc);
+    }
+  );
 });
 
 routes.get("/api/getDoneTask/:user", (req, res) => {
-  Task.find({ assignTo: req.params.user, status: "Done" }, (err, doc) => {
-    if (err) return res.status(400).send(err);
-    if (!doc)
-      return res.status(200).json({
-        message: "Not found",
-      });
-    res.status(200).send(data);
-  });
+  Task.find(
+    { $and: [{ assignTo: req.params.user }, { status: "Done" }] },
+
+    (err, doc) => {
+      if (err) return res.status(400).send(err);
+      if (!doc)
+        return res.status(200).json({
+          message: "Not found",
+        });
+      res.status(200).send(doc);
+    }
+  );
 });
 
 module.exports = routes;
