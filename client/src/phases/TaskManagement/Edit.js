@@ -90,7 +90,7 @@ class Edit extends Component {
   };
   onSearch = async (searchText) => {
     const result = await search(
-      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+      `/api/getFriend/${this.props.userId}/${searchText}`
     );
     const friend = result;
     console.log(friend);
@@ -241,7 +241,7 @@ class Edit extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.userId,
+    userId: state.auth.user.userId,
   };
 };
 

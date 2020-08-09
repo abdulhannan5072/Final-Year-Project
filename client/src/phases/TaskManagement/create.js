@@ -72,7 +72,7 @@ class Create extends Component {
   };
   onSearch = async (searchText) => {
     const result = await search(
-      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+      `/api/getFriend/${this.props.userId}/${searchText}`
     );
     const friend = result;
     console.log(friend);
@@ -216,7 +216,8 @@ class Create extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.auth.user.userId,
+    currentUser: state.auth.user.username,
+    userId: state.auth.user.userId,
   };
 };
 
