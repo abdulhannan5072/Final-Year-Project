@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import User from "./User";
 
 let socket;
-const { Meta } = Card;
 const ENDPOINT = "localhost:4000";
 
 class Chat extends React.Component {
@@ -29,6 +28,11 @@ class Chat extends React.Component {
   componentDidMount() {
     this.initSocket();
     this.getMsg();
+  }
+   
+  componentWillUnmount(){
+    // socket.emit('disconnect', { user: this.props.currentUser } )
+    socket.disconnect({ user: this.props.currentUser });
   }
 
   initSocket() {

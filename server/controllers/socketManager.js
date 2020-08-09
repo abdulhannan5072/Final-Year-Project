@@ -25,7 +25,10 @@ module.exports = function (socket) {
   // const userAddedInProject = 
   // socket.emit("")
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", ({user}) => {
+    // user = { id: socket.id, user };
+    // connectedUsers = connectedUsers.filter(item => item.id !== user)
+    console.log(user)
     console.log("disconnect user");
   });
 };

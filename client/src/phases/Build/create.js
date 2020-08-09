@@ -19,7 +19,7 @@ import {
 
 const validationSchema = Yup.object().shape({
   build: Yup.string()
-    .min(1, "Too Short!")
+    .min(2, "Too Short!")
     .max(11,"too Long!")
     .required("Required")
 });

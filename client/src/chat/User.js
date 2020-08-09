@@ -7,6 +7,7 @@ import { Button } from "antd";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { search } from "../shared/utils/AsyncFetch";
+import { connect } from "react-redux";
 
 
 
@@ -21,7 +22,7 @@ class AddUser extends Component {
 
   onSearch = async (searchText) => {
     const result = await search(
-      `/api/getFriend/${"5f0f9020883694467c5917cc"}/${searchText}`
+      `/api/getFriend/${this.props.userId}/${searchText}`
     );
     const friend = result;
     console.log(friend);
@@ -87,5 +88,9 @@ class AddUser extends Component {
     );
   }
 }
-
-export default withRouter(withSnackbar(AddUser));
+const mapStateToProps = state => {
+  return{
+    userId: state.auth.userId
+  }
+}
+export default withRouter(connect(mapStateToProps)(withSnackbar(AddUser)));
