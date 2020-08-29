@@ -48,18 +48,23 @@ const routes = require("./routes");
 
 app.use("/", routes);
 
-const port = process.env.port || 4000;
+//deployment
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+
+  app.get('/*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, '../client','build','index.html'));
+  })
+}
+
+
+
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log("SERVER is running on port " + port);
 });
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
 
-  app.get('*', (req, res)=>{
-    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
-  })
-}
 
 const io = require('./socket').init(server);
 
