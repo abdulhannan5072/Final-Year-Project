@@ -25,7 +25,7 @@ QuillEditor.modules = {
     [{ 'size': [ 'small', false, 'large', 'huge' ]}],
     ['bold', 'italic', 'underline','strike', 'blockquote'],
     [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-    [ 'code-block', 'link', 'image', 'video'],
+    [ 'code-block'],
     ['clean']
   ],
 }
@@ -36,7 +36,7 @@ QuillEditor.formats = [
   'size',
   'bold', 'italic', 'underline', 'strike', 'blockquote',
   'list', 'bullet', 'indent',
-  'code-block', 'link','image','video',
+  'code-block', 
   'clean'
 ];
 

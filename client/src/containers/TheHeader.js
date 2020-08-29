@@ -9,29 +9,24 @@ import {
   CHeaderNavLink,
   CSubheader,
   CBreadcrumbRouter,
-  CLink
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 // routes config
 import routes from '../routes'
-import {msgDrawer} from '../store/actions'
+// import {msgDrawer} from '../store/actions'
 
 
 import { 
   TheHeaderDropdown,
-  TheHeaderDropdownMssg,
-  TheHeaderDropdownNotif,
-  TheHeaderDropdownTasks
 }  from './index'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector(state => state.reducer.sidebarShow)
-  const msgbarShow = useSelector(state => state.reducer.msgDrawerState)
+  // const msgbarShow = useSelector(state => state.reducer.msgDrawerState)
 
 
-  const msgDrawerS = (data) => dispatch(msgDrawer(data))
+  // const msgDrawerS = (data) => dispatch(msgDrawer(data))
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
@@ -43,9 +38,9 @@ const TheHeader = () => {
     dispatch({type: 'set', sidebarShow: val})
   }
 
-  const msgDrawerHandle = () => {
-    msgDrawerS(!msgbarShow)
-  }
+  // const msgDrawerHandle = () => {
+  //   msgDrawerS(!msgbarShow)
+  // }
 
   return (
     <CHeader withSubheader>

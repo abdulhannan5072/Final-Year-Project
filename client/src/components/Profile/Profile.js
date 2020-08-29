@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Aux from "../../hoc/_Aux";
-import { Image, Row, Col, Button, Card } from "react-bootstrap";
+import { Image, Row, Col,  Card } from "react-bootstrap";
 import dp from "./assets/dp.jpg";
 import "./style.css";
 import { Paper } from "@material-ui/core";
@@ -8,7 +8,7 @@ import Avatar1 from "./assets/avatar-1.png";
 import Avatar2 from "./assets/avatar-2.png";
 import Cover from "./assets/cover.jpg";
 import { AntInput } from "../../shared/components";
-import { Field, Formik, Form } from "formik";
+import { Field, Formik } from "formik";
 import {
   MailOutlined,
   PhoneOutlined,
@@ -19,8 +19,8 @@ import { Empty } from "antd";
 
 class Profile extends Component {
   render() {
-    let classes = "editable";
-    const onFocusHandler = () => (classes = { ..."hover" });
+    // let classes = "editable";
+    // const onFocusHandler = () => (classes = { ..."hover" });
 
     return (
       <Aux>
@@ -135,13 +135,13 @@ class Profile extends Component {
                   className="paper d-flex justify-content-center"
                 >
                   <div className="align-self-center">
-                    <img src={Avatar1} />
+                    <img alt='nothing' src={Avatar1} />
                   </div>
                   <div
                     className="align-self-center mr-3"
                     style={{ marginLeft: -30 }}
                   >
-                    <img src={Avatar2} />
+                    <img alt='nothing' src={Avatar2} />
                   </div>
                   <div className="align-self-center">
                     <Card.Text>There are no people to see here</Card.Text>

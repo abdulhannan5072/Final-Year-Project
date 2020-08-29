@@ -15,8 +15,6 @@ import {
   AutoComplete,
   QuillEditorFormik,
 } from "../../shared/components";
-import { dateFormat, formatDate } from "../../shared/utils/dateTime";
-import moment from "moment";
 import {
   defectTypes,
   status,

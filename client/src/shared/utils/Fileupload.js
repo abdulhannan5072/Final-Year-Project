@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload, message, Modal } from "antd";
+import {  Upload, message, Modal } from "antd";
 
 const { Dragger } = Upload;
 

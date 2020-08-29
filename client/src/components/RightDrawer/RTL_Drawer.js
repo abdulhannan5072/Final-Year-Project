@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Drawer, Button } from 'antd';
+import { Drawer} from 'antd';
 import {connect} from 'react-redux';
 import {msgDrawer} from '../../store/actions'
 // import Chat from '../../Chatting/Chat/Chat'

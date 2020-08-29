@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Container, Row} from "react-bootstrap";
+import { Row} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Table } from "../../../shared/components";
 import {connect} from 'react-redux';
 
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { Button, Space, Popconfirm, Tooltip, Alert, Card } from "antd";
+import { Button, Space, Popconfirm, Tooltip,  Card } from "antd";
 
 class Done extends Component {
   state = {
@@ -20,7 +20,7 @@ class Done extends Component {
 
   async fetch() {
     this.setState({ loading: true });
-    const Pid = this.props.match.params.Pid;
+    // const Pid = this.props.match.params.Pid;
     try {
       const response = await axios.get("/api/getDoneTask/" + this.props.username);
       this.setState({

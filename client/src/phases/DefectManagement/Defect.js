@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Aux from "../../hoc/_Aux/index";
 import { Row, Col } from "react-bootstrap";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
-import { Button, Space, Popconfirm, Tooltip, Alert, Card } from "antd";
+import { Button, Space, Popconfirm, Tooltip} from "antd";
 import { Table } from "../../shared/components";
 import { Link } from "react-router-dom";
 import axios from "axios";

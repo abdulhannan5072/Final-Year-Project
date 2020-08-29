@@ -8,7 +8,6 @@ import { Info, InfoTitle, InfoSubtitle } from "@mui-treasury/components/info";
 import { useTutorInfoStyles } from "@mui-treasury/styles/info/tutor";
 import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized";
 import { useDynamicAvatarStyles } from "@mui-treasury/styles/avatar/dynamic";
-import { Button } from "antd";
 
 const useStyles = makeStyles(() => ({
   root: {

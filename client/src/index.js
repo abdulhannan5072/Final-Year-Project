@@ -9,7 +9,7 @@ import { SnackbarProvider } from "notistack";
 
 import { BrowserRouter } from "react-router-dom";
 import { createStore, compose, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
+// import createSagaMiddleware from "redux-saga";
 
 import { icons } from "./assets/icons";
 import Thunk from "redux-thunk";
@@ -21,11 +21,11 @@ import './index.css';
 
 
 React.icons = icons;
-const sagaMiddleware = createSagaMiddleware();
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const sagaMiddleware = createSagaMiddleware();
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(Thunk))
+  compose(applyMiddleware(Thunk))
 );
 // sagaMiddleware.run(rootSaga);
 

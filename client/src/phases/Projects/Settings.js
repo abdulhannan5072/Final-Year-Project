@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { connect } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { Button, Space, Popconfirm } from "antd";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";

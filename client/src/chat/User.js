@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import {  AutoComplete } from "../shared/components";
 import { Row, Col } from "react-bootstrap";
-import * as Yup from "yup";
 import { withSnackbar } from "notistack";
 import { Button } from "antd";
-import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { search } from "../shared/utils/AsyncFetch";
 import { connect } from "react-redux";

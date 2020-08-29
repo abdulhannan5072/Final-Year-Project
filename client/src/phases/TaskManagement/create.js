@@ -13,7 +13,6 @@ import { Col, Row } from "react-bootstrap";
 import { Button, Card } from "antd";
 import * as Yup from "yup";
 import { status } from "../../shared/constants/Types";
-import moment from "moment";
 import { dateFormat } from "../../shared/utils/dateTime";
 import { withSnackbar } from "notistack";
 import axios from "axios";

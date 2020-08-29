@@ -1,7 +1,6 @@
 import React from "react";
 import { CContainer } from "@coreui/react";
-import { Card, Avatar, Button, Divider } from "antd";
-import { Link } from "react-router-dom";
+import { Card,  Button, Divider } from "antd";
 import { Row, Col } from "react-bootstrap";
 import io from "socket.io-client";
 import Message from "./Message";

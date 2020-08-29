@@ -18,7 +18,6 @@ import {
 } from "../../shared/components";
 import { dateFormat, formatDate } from "../../shared/utils/dateTime";
 import { status } from "../../shared/constants/Types";
-import moment from "moment";
 import { search } from "../../shared/utils/AsyncFetch";
 
 const validationSchema = Yup.object().shape({
@@ -73,7 +72,7 @@ class Edit extends Component {
     };
     const data = {
       ...values,
-      assignTo: this.state.value
+      // assignTo: this.state.value
     };
     const id = this.props.match.params.id;
     axios.post("/api/task/" + id, data).then((res) => {
