@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import User from "./User";
 
 let socket;
-const ENDPOINT = "localhost:4000";
+const ENDPOINT = process.env.PORT || "localhost:4000";
 
 class Chat extends React.Component {
   constructor(props) {
