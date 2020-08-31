@@ -23,10 +23,10 @@ class Friends extends Component {
   componentDidMount() {
     this.fetchRequests();
     this.getFriendsList();
-    this.initSocket();
+    // this.initSocket();
   }
   initSocket() {
-    socket = io("localhost:4000");
+    socket = io("https://guarded-island-32704.herokuapp.com/");
 
     socket.on("friends", (data) => {
       console.log(data.message);
