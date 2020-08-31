@@ -6,6 +6,7 @@ const config = require("./config/config").get(process.env.NODE_ENV);
 const multer = require("multer");
 const path = require("path");
 const app = express();
+const cors = require("cors");
 
 //File upload 
 const fileStorage = multer.diskStorage({
@@ -36,6 +37,7 @@ mongoose.connect(config.DATABASE, { useNewUrlParser: true, useUnifiedTopology: t
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
 //File upload 
 app.use(
