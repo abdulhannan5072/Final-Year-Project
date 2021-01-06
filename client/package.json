@@ -42,7 +42,7 @@
     "@material-ui/styles": "^4.10.0",
     "@mui-treasury/components": "^1.5.2",
     "antd": "^4.3.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "compass-sass-mixins": "^0.12.7",
