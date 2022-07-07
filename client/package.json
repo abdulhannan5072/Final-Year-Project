@@ -54,7 +54,7 @@
     "http-proxy-middleware": "^1.0.4",
     "less": "^3.11.3",
     "lodash": "^4.17.19",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "node-sass": "^4.14.1",
     "notistack": "^0.9.17",
     "prop-types": "^15.7.2",
